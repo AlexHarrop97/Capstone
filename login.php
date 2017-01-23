@@ -45,7 +45,7 @@ if (isset($_POST['email']))
 <?php
 //login form
 echo "\n<form action='login.php' method='post' id='signup-login'>";
-    echo "\n\tName: <input type='text' name = 'username' /><br/>";
+    echo "\n\tName: <input type='text' name = 'email' /><br/>";
     echo "\n\tPassword: <input type='password' name='password' /><br/>";
     echo "\n\t<input type='submit' />";
 echo "\n</form>";
