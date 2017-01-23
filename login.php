@@ -2,32 +2,28 @@
 session_start();
 require_once("db.php");
 
-if (isset($_POST['username']))
+if (isset($_POST['email']))
 {
-  $username = $_POST['username'];
-  $pword = $_POST['password'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
   try
   {
-    //grabs record for the username
-    $stmt = $db->prepare("SELECT * FROM users WHERE uName = :username");
-    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    //grabs record for the email
+    $stmt = $db->prepare("SELECT * FROM users WHERE Email = :email");
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->execute();
     $results = $stmt->fetch();
     //plug store pass into $hashPass
-    $hashPass = $results['pwd'];
-    $username = $results['uName'];
-    $firstName = $results['fName'];
-    $lastName = $results['lName'];
-    $admin = $results['admin'];
+    $hashPass = $results['P4WD'];
+    $email = $results['email'];
+    $accessLvl = $results['AccessLevel'];
     //compares stored Password($hashPass) against password entered($pword)
-    if(password_verify($pword, $hashPass))
+    if(password_verify($password, $hashPass))
     {
 
       $_SESSION['valid'] = true;
-      $_SESSION['username'] = $username;
-      $_SESSION['firstName'] = $firstName;
-      $_SESSION['lastName'] = $lastName;
-      $_SESSION['admin'] = $admin;
+      $_SESSION['Email'] = $email;
+      $_SESSION['AccessLevel'] = $accessLvl;
       //redirect back to index
       header('Location: index.php');
 
@@ -35,7 +31,7 @@ if (isset($_POST['username']))
 
   } catch (PDOException $e)
   {
-    die("User $username, does not exist.");
+    die("User $email, does not exist.");
   }
 
 }
