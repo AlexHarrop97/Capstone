@@ -1,3 +1,3 @@
 <?php
 
-require_once '~\STORAGE\APACHE\htdocs\Capstone';
+require_once 'E:/STORAGE/APACHE/htdocs/Capstone/db.php';

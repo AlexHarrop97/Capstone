@@ -1,8 +1,8 @@
 <?php
 
 	$user="group3";
-	$pass="group3";
-	$dsn="sqlsrv:Server=sql.neit.edu,4500;Database=SE265Win17Group3";
+	$pass="Group3";
+	$dsn="mysql:host=sql.neit.edu;port=5500;dbname=se265win17group3;";
 
 	try {
 
