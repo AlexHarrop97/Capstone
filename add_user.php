@@ -1,4 +1,7 @@
 <?php
+// this is where the user is created
+// the information is obtained from the register_user.php file using post method
+
 require_once('db.php');
 
 try {
@@ -21,6 +24,10 @@ try {
 	// This line sets the default access level
 	$AccessLevel = '0';
 	
+
+	// this checks to see if both password and passConfirm match before it is thrown into the database
+	// if the passwords match, the statment will execute
+	// if not, the user will have to try again.
 	if ($_POST["password"] != $_POST["passConfirm"]) {
 
 		echo "The passwords do not match! ";

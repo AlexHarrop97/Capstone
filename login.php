@@ -1,5 +1,7 @@
 <html>
 <body>
+
+<!-- LOGIN FORM -->
 <form action="do_login.php" method="post">
 Email: <input type="text" name="email" />
 Password: <input type="password" name="password" />

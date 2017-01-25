@@ -1,6 +1,9 @@
 <?php 
 session_start();
 
+// check if the session exists(it should have been created in do_login.php)
+// if it exists, send the user back to index and display the logged in message
+// if not, send the user back to login.php with a message reading "the account does not exist"
 if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 
 	echo "You are currently logged in as " . $_SESSION["User"];
@@ -16,6 +19,7 @@ if (!isset($_GET["loggedIn"])) {
 	SignOut();
 }
 
+// this function clears the session variable and destroy's the session when the user logs out
 function SignOut() {
 
 	$_SESSION["User"] = "";

@@ -1,4 +1,6 @@
 <?php
+	// DO NOT MODIFY(this is the database connection)
+
 
 	$user="group3";
 	$pass="Group3";

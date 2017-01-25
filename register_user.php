@@ -1,6 +1,8 @@
 <html>
 <body>
 
+
+<!-- REGISTER FORM -->
 <form action="add_user.php" method="post">
 
 Email Address: <input type="text" name="userName" />
