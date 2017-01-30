@@ -3,7 +3,7 @@
 
 
 <!-- REGISTER FORM -->
-<form action="add_user.php" method="post">
+<form action="actions/add_user.php" method="post">
 
 Email Address: <input type="text" name="userName" />
 First Name: <input type="text" name="firstName" />

@@ -10,7 +10,7 @@ if (isset($_GET["status"])) {
 <body>
 
 <!-- LOGIN FORM -->
-<form action="do_login.php" method="post">
+<form action="actions/do_login.php" method="post">
 Email: <input type="text" name="email" />
 Password: <input type="password" name="password" />
 <input type="submit" />
