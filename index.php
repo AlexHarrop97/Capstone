@@ -7,16 +7,16 @@ session_start();
 if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 
 	echo "You are currently logged in as " . $_SESSION["User"];
+
+	while ($_SESSION["User"] != null) {
+
+		//logged in stuff goes here
+	}
 }
 else {
 
 	//redirect user back to login.php if the session does not exist
 	header('Location: login.php');
-}
-
-if (!isset($_GET["loggedIn"])) {
-
-	SignOut();
 }
 
 // this function clears the session variable and destroy's the session when the user logs out
