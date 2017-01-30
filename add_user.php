@@ -15,7 +15,6 @@ try {
 	$stmt->bindParam(':accesslvl', $AccessLevel);
 	
 	$Email = $_POST["userName"];
-	$Password = $_POST["password"];
 	$FirstName = $_POST["firstName"];
 	$LastName = $_POST["lastName"];
 	
@@ -34,17 +33,19 @@ try {
 	}
 	else {
 
+		$Password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 		$stmt->execute();
+		
 	}
 	
 	
 	echo "Successfully Registered!";
 	
 	//redirect user back to homepage
-	header('Location: index.php');
+	//header('Location: index.php');
 }
 catch (PDOException $e) {
 	
-	die('Connection Failed! ');
+	die('Registration Failed! ');
 }
 ?>

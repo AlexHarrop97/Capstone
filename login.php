@@ -1,3 +1,11 @@
+<?php
+if (isset($_GET["status"])) {
+
+	echo "This user does not exist within the database.";
+}
+
+
+?>
 <html>
 <body>
 
