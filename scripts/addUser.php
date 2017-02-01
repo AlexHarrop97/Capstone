@@ -15,7 +15,6 @@ try {
 	$stmt->bindParam(':pass', $Password);
 	$stmt->bindParam(':fname', $FirstName);
 	$stmt->bindParam(':lname', $LastName);
-	$stmt->bindParam(':accesslvl', $AccessLevel);
 	
 	$Email = $_POST["userName"];
 	$FirstName = $_POST["firstName"];

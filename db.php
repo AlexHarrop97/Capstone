@@ -10,6 +10,8 @@
 
 		$db = new PDO($dsn, $user, $pass);
 		$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+
+		echo "Database connected successfully! "; //displayed on every page where a database connection is made. 
 	}
 	catch (PDOException $e) {
 	

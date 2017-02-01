@@ -1,5 +1,5 @@
 <?php 
-session_start();
+//session_start();
 
 // check if the session exists(it should have been created in do_login.php)
 // if it exists, send the user back to index and display the logged in message

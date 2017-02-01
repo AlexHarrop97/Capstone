@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require('scripts/getComments.php');
+
 
 
 
@@ -11,7 +13,7 @@ session_start();
 </head>
 
 <body>
-	<form action="scripts/comments_backend.php" method="post">
+	<form action="scripts/sendComments.php" method="post">
 	<textarea name="commentBox">Type your message here...</textarea>
 	<input type="submit" />
 	</form>
