@@ -9,20 +9,11 @@ if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 	echo "You are currently logged in as " . $_SESSION["User"];
 
 	while ($_SESSION["User"] != null) {
-		
+
+		// whatever is here gets done while the user is logged in.
 	}
 }
 else {
-
-	//redirect user back to login.php if the session does not exist
-	header('Location: login.php');
-}
-
-// this function clears the session variable and destroy's the session when the user logs out
-function SignOut() {
-
-	$_SESSION["User"] = "";
-	session_destroy();
 
 	//redirect user back to login.php if the session does not exist
 	header('Location: login.php');
