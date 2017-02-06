@@ -1,8 +1,8 @@
-<?php /*
+<?php 
 require_once('db.php');
 
 session_start();
-
+/*
 if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 
 	echo "You are currently logged in as " . $_SESSION["User"];
@@ -34,8 +34,23 @@ foreach ($userCheck as $user) {
  		echo "you do not have access to this project";
  	}
  }
-
 */
+
+$query = $db->prepare("
+	SELECT todo.User_ID, Description, Status
+	FROM todo INNER JOIN projects ON todo.Project_ID = projects.Project_ID
+	WHERE todo.User_ID = projects.User_ID;
+");
+
+$query->execute(['user' => $_SESSION['User_ID']
+	]);
+
+$items = $query->rowCount() ? $query : [];
+
+foreach ($items as $item) {
+	echo $item->Description;
+}
+
 ?> 
 
 
@@ -55,20 +70,22 @@ foreach ($userCheck as $user) {
 </style>
 
 <body>
-	<div id="todo">
-		<input type="text" id="newTask">
-		<input type="button" id="addTask" value="Add Task">	
-		<input type="button" id="delTask" value="Delete Task">	
-		<input type="button" id="updateTask" value="Update Task">
-	</div>
 	<div id="list">
 		<h1>To-Do List</h1>
 			<ul>
-				
+				<li><span class="item<?php echo $item['done'] ? ' done' : '' ?>"><?php echo $item['Description'];?></span></li>
+				<?php if(!item['Status']): ?>
+					<a href="done.php?as=status&item=<?php echo $item['id']; ?> 
+				<?php endif; ?>
 			</ul>
+
+			<form action="add" method="post">
+				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off">
+				<input type="submit" value="Add" class="submit">
+			</form>
 	</div>
 </body>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 $(function() {
   var list = [];
@@ -85,6 +102,6 @@ $(function() {
   });
 });
 
-</script>
+</script> -->
 </html>
 
