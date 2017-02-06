@@ -37,9 +37,9 @@ foreach ($userCheck as $user) {
 */
 
 $query = $db->prepare("
-	SELECT User_ID, Description, Status */
+	SELECT todo.User_ID, Description, Status
 	FROM todo INNER JOIN projects ON todo.Project_ID = projects.Project_ID
-	WHERE user = :user;
+	WHERE todo.User_ID = projects.User_ID;
 ");
 
 $query->execute(['user' => $_SESSION['User_ID']
@@ -48,7 +48,7 @@ $query->execute(['user' => $_SESSION['User_ID']
 $items = $query->rowCount() ? $query : [];
 
 foreach ($items as $item) {
-	echo $item->description;
+	echo $item->Description;
 }
 
 ?> 
@@ -70,24 +70,18 @@ foreach ($items as $item) {
 </style>
 
 <body>
-	<div id="todo">
-		<input type="text" id="newTask">
-		<input type="button" id="addTask" value="Add Task">	
-		<input type="button" id="delTask" value="Delete Task">	
-		<input type="button" id="updateTask" value="Update Task">
-	</div>
 	<div id="list">
 		<h1>To-Do List</h1>
 			<ul>
-				<li><span class="item<?php echo $item['done'] ? ' done' : '' ?>"><?php echo $item['description'];?></span></li>
-				<?php if(!item['done']): ?>
-					<a href="done.php?as=done&item=<?php echo $item['id']; ?> 
+				<li><span class="item<?php echo $item['done'] ? ' done' : '' ?>"><?php echo $item['Description'];?></span></li>
+				<?php if(!item['Status']): ?>
+					<a href="done.php?as=status&item=<?php echo $item['id']; ?> 
 				<?php endif; ?>
 			</ul>
 
 			<form action="add" method="post">
-				<input type="submit" value="add" class="submit">
 				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off">
+				<input type="submit" value="Add" class="submit">
 			</form>
 	</div>
 </body>
