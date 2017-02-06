@@ -1,4 +1,7 @@
 <?php 
+
+include('scripts/getUser.php');
+
 session_start();
 
 // check if the session exists(it should have been created in do_login.php)
@@ -21,6 +24,8 @@ function SignOut() {
 	$_SESSION["User"] == "";
 	session_destroy();
 }
+
+echo $userEmail . $userPassword . $userFirstName . $userLastName;
 
 ?>
 <html>
