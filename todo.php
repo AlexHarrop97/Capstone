@@ -1,8 +1,8 @@
-<?php /*
+<?php 
 require_once('db.php');
 
 session_start();
-
+/*
 if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 
 	echo "You are currently logged in as " . $_SESSION["User"];
@@ -34,8 +34,23 @@ foreach ($userCheck as $user) {
  		echo "you do not have access to this project";
  	}
  }
-
 */
+
+$query = $db->prepare("
+	SELECT User_ID, Description, Status */
+	FROM todo INNER JOIN projects ON todo.Project_ID = projects.Project_ID
+	WHERE user = :user;
+");
+
+$query->execute(['user' => $_SESSION['User_ID']
+	]);
+
+$items = $query->rowCount() ? $query : [];
+
+foreach ($items as $item) {
+	echo $item->description;
+}
+
 ?> 
 
 
@@ -64,11 +79,19 @@ foreach ($userCheck as $user) {
 	<div id="list">
 		<h1>To-Do List</h1>
 			<ul>
-				
+				<li><span class="item<?php echo $item['done'] ? ' done' : '' ?>"><?php echo $item['description'];?></span></li>
+				<?php if(!item['done']): ?>
+					<a href="done.php?as=done&item=<?php echo $item['id']; ?> 
+				<?php endif; ?>
 			</ul>
+
+			<form action="add" method="post">
+				<input type="submit" value="add" class="submit">
+				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off">
+			</form>
 	</div>
 </body>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
 $(function() {
   var list = [];
@@ -85,6 +108,6 @@ $(function() {
   });
 });
 
-</script>
+</script> -->
 </html>
 
