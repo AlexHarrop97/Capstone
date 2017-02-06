@@ -1,5 +1,8 @@
 <?php 
-//session_start();
+
+include('scripts/getUser.php');
+
+session_start();
 
 // check if the session exists(it should have been created in do_login.php)
 // if it exists, send the user back to index and display the logged in message
@@ -8,10 +11,7 @@ if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 
 	echo "You are currently logged in as " . $_SESSION["User"];
 
-	while ($_SESSION["User"] != null) {
-
-		// whatever is here gets done while the user is logged in.
-	}
+	
 }
 else {
 
@@ -19,10 +19,18 @@ else {
 	header('Location: login.php');
 }
 
+function SignOut() {
+
+	$_SESSION["User"] == "";
+	session_destroy();
+}
+
+echo $userEmail . $userPassword . $userFirstName . $userLastName;
+
 ?>
 <html>
 <body>
-<span><a href="login.php">Sign Out</a></span>
+<span><a action="SignOut()" href="login.php">Sign Out</a></span>
 
 
 </body>
