@@ -20,5 +20,5 @@ if(isset($_POST['User_ID'])) {
 			]);
 	}
 }
-
+header('Location: todo.php');
 ?>

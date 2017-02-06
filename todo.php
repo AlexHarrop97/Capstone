@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once('db.php');
 
 session_start();
@@ -42,7 +42,8 @@ $query = $db->prepare("
 	WHERE todo.User_ID = projects.User_ID;
 ");
 
-$query->execute(['user' => $_SESSION['User_ID']
+$query->execute([
+	'user' => $_SESSION['User_ID']
 	]);
 
 $items = $query->rowCount() ? $query : [];
@@ -72,13 +73,15 @@ foreach ($items as $item) {
 <body>
 	<div id="list">
 		<h1>To-Do List</h1>
+			<?php if(!empty($items)): ?>
 			<ul>
-				<li><span class="item<?php echo $item['done'] ? ' done' : '' ?>"><?php echo $item['Description'];?></span></li>
-				<?php if(!item['Status']): ?>
-					<a href="done.php?as=status&item=<?php echo $item['id']; ?> 
-				<?php endif; ?>
+				<li><span class="item<?php echo $item['Status'] ? ' Status' : '' ?>"><?php echo $item['Description'];?></span>
+					<?php if(!$item['Status']): ?>
+						<a href="done.php?as=status&item=<?php echo $item['id']; ?>" class="mark-done">
+					<?php endif; ?>
+				</li>	
 			</ul>
-
+			<?php endif; ?>
 			<form action="add" method="post">
 				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off">
 				<input type="submit" value="Add" class="submit">
