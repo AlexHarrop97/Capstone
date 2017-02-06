@@ -1,6 +1,4 @@
-<?php 
-
-include('scripts/getUser.php');
+<?php
 
 session_start();
 
@@ -24,8 +22,6 @@ function SignOut() {
 	$_SESSION["User"] == "";
 	session_destroy();
 }
-
-echo $userEmail . $userPassword . $userFirstName . $userLastName;
 
 ?>
 <html>

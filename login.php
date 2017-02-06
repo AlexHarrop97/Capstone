@@ -13,7 +13,7 @@ Email: <input type="text" name="email" />
 Password: <input type="password" name="password" />
 <input type="submit" />
 
-<span><a href="register_user.php">Register Here</a></span>
+<span><a href="register.php">Register Here</a></span>
 </form>
 
 
