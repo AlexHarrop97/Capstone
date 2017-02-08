@@ -1,8 +1,9 @@
 <?php
 require_once('db.php');
+require_once('login.php');
 
 session_start();
-/*
+
 if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 
 	echo "You are currently logged in as " . $_SESSION["User"];
@@ -17,6 +18,7 @@ if (!isset($_GET["loggedIn"])) {
 
 	SignOut();
 }
+/*
 // Displays the contents in database for todo's
 $getTodo = db->prepare("Select * FROM todo INNER JOIN projects ON todo.PROJECT_ID = projects.Project_ID");
 
@@ -43,13 +45,13 @@ $query = $db->prepare("
 ");
 
 $query->execute([
-	'user' => $_SESSION['User_ID']
+	'userid' => $_SESSION['User_ID']
 	]);
 
 $items = $query->rowCount() ? $query : [];
 
 foreach ($items as $item) {
-	echo $item->Description;
+	echo $item['Description']->Description;
 }
 
 ?> 
@@ -83,7 +85,7 @@ foreach ($items as $item) {
 			</ul>
 			<?php endif; ?>
 			<form action="add" method="post">
-				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off">
+				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off" action="add.php">
 				<input type="submit" value="Add" class="submit">
 			</form>
 	</div>
