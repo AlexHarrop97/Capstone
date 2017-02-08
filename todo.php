@@ -45,7 +45,7 @@ $query = $db->prepare("
 ");
 
 $query->execute([
-	'userid' => $_SESSION['User_ID']
+	'userid' => $_SESSION['User']
 	]);
 
 $items = $query->rowCount() ? $query : [];
