@@ -9,7 +9,7 @@ if(isset($_GET['as'], $_GET['item'])) {
 		case 'done':
 			$doneQuery = $db->prepare("
 				UPDATE items
-				SET status = 1
+				SET Status = 1
 				WHERE id = :item
 				AND user= :user
 				");

@@ -74,16 +74,59 @@ else {
                 <div class="row">
                     <div class="col s12">
                     </div>
-                    <div id="profileTab" class="col s12"><a href="#test1">Test 1</a></div>
-                    <div id="test2" class="col s12"><a href="#test1">Test 1</a></div>
-                    <div id="test3" class="col s12"><a href="#test1">Test 1</a></div>
-                    <div id="test4" class="col s12"><a href="#test1">Test 1</a></div>
+                    <div id="profileTab" class="col s12"><a href="#">Profile Settings</a></div>
+                    <div id="manageTab" class="col s12"><a href="#">Manage Current Groups</a></div>
+                    <div id="createTab" class="col s12"><a href="#">Create New Group</a></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col s4" id="settings" style="display:none">
+    <div class="col s4" id="profile" style="display:none">
+        <div class="card">
+            <div class="card-content">
+                <p>This is your profile information.</p>
+            </div>
+            <div class="card-action">
+                <div class="row">
+                    <div class="col s12">
+                        <form class="col s12" id="profileForm" action="scripts/getUser.php" method="post">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <label for="first_name">First Name</label><br/>
+                                    <input id="first_name" type="text" class="validate" value="<?php
+                                    echo $userFirstName;?>">
+                                </div>
+                                <div class="input-field col s6">
+                                    <label for="last_name">Last Name</label><br/>
+                                    <input id="last_name" type="text" class="validate" value="<?php
+                                    echo $userLastName?>">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label for="password">Password</label><br/>
+                                    <input id="password" type="password" class="validate">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label for="email">Email</label><br/>
+                                    <input id="email" type="email" class="validate" name="userEmail" value="<?php
+                                    echo @$_POST['userEmail'];?>">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col s4" id="manage" style="display:none">
         <div class="card">
             <div class="card-image">
                 <img src="images/sample-1.jpg">
@@ -95,15 +138,42 @@ else {
             <div class="card-action">
                 <div class="row">
                     <div class="col s12">
+                        <p>Content</p>
                     </div>
-                    <div id="test1" class="col s12"><a href="#test1">Test 1</a></div>
-                    <div id="test2" class="col s12"><a href="#test1">Test 1</a></div>
-                    <div id="test3" class="col s12"><a href="#test1">Test 1</a></div>
-                    <div id="test4" class="col s12"><a href="#test1">Test 1</a></div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+    <form class="col s12" id="create" style="display: none">
+        <div class="row">
+            <div class="input-field col s6">
+                <label for="first_name">First Name</label><br/>
+                <input id="first_name" type="text" class="validate">
+            </div>
+            <div class="input-field col s6">
+                <label for="last_name">Last Name</label><br/>
+                <input id="last_name" type="text" class="validate">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="password">Password</label><br/>
+                <input id="password" type="password" class="validate">
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <label for="email">Email</label><br/>
+                <input id="email" type="email" class="validate">
+            </div>
+        </div>
+    </form>
+
 
 </div>
 
@@ -145,13 +215,14 @@ else {
         crossorigin="anonymous"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        /*$('ul.tabs').tabs();
-        $( "#profileTab" ).on("click", function() {
-            $( "#settings" ).show( "slow", function() {
-                // Animation complete.
-            });*/
         $("#profileTab").on("click", function () {
-            $("#settings").show();
+            $("#profile").toggle();
+        });
+        $("#manageTab").on("click", function () {
+            $("#manage").toggle();
+        });
+        $("#createTab").on("click", function () {
+            $("#create").toggle();
         });
         });
 </script>

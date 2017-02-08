@@ -1,8 +1,9 @@
-<?php 
+<?php
 require_once('db.php');
+require_once('login.php');
 
 session_start();
-/*
+
 if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 
 	echo "You are currently logged in as " . $_SESSION["User"];
@@ -17,6 +18,7 @@ if (!isset($_GET["loggedIn"])) {
 
 	SignOut();
 }
+/*
 // Displays the contents in database for todo's
 $getTodo = db->prepare("Select * FROM todo INNER JOIN projects ON todo.PROJECT_ID = projects.Project_ID");
 
@@ -42,13 +44,14 @@ $stmt = $db->prepare("
 	WHERE todo.User_ID = projects.User_ID;
 ");
 
-$query->execute(['user' => $_SESSION['User_ID']
+$query->execute([
+	'userid' => $_SESSION['User']
 	]);
 
 $items = $query->rowCount() ? $query : [];
 
 foreach ($items as $item) {
-	echo $item->Description;
+	echo $item['Description']->Description;
 }
 
 ?> 
@@ -72,15 +75,17 @@ foreach ($items as $item) {
 <body>
 	<div id="list">
 		<h1>To-Do List</h1>
+			<?php if(!empty($items)): ?>
 			<ul>
-				<li><span class="item<?php echo $item['done'] ? ' done' : '' ?>"><?php echo $item['Description'];?></span></li>
-				<?php if(!item['Status']): ?>
-					<a href="done.php?as=status&item=<?php echo $item['id']; ?> 
-				<?php endif; ?>
+				<li><span class="item<?php echo $item['Status'] ? ' Status' : '' ?>"><?php echo $item['Description'];?></span>
+					<?php if(!$item['Status']): ?>
+						<a href="done.php?as=status&item=<?php echo $item['id']; ?>" class="mark-done">
+					<?php endif; ?>
+				</li>	
 			</ul>
-
+			<?php endif; ?>
 			<form action="add" method="post">
-				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off">
+				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off" action="add.php">
 				<input type="submit" value="Add" class="submit">
 			</form>
 	</div>
