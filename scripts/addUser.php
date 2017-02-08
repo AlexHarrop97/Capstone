@@ -2,7 +2,7 @@
 // this is where the user is created
 // the information is obtained from the register_user.php file using post method
 
-require_once('../db.php');
+require_once('../dependencies/db.php');
 
 try {
 	
@@ -24,14 +24,14 @@ try {
 	// this checks to see if both password and passConfirm match before it is thrown into the database
 	// if the passwords match, the statment will execute
 	// if not, the user will have to try again.
-	// 
-	// 
 	
+
+
 	foreach ($result as $email) {
 
 		if ($email["Email"] == $_POST["userName"]) {
 
-			echo "The email addressed used is already registered to an account. ";
+			echo "This email address is already registered to an account. ";
 		}
 	}
 
