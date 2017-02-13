@@ -35,7 +35,7 @@ try {
 			echo $_SESSION["User"];
 
 			//redirect user back to homepage
-			header('Location: ../todo.php');
+			header('Location: ../index.php');
 		}
 	}
 }
