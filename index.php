@@ -17,13 +17,6 @@ else {
 	header('Location: login.php');
 }
 
-
-
-function SignOut() {
-
-	
-}
-
 ?>
 <html>
 <body>
