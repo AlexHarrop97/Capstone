@@ -25,7 +25,7 @@ try {
 		// send the user back to login.php
 		if ($user['Email'] != $_POST["email"] || !password_verify($_POST["password"], $user["P4WD"])) {
 
-			header('url: ../login.php?loginSuccess=0');
+			header('url: ../login.php');
 		}
 		
 		else {
