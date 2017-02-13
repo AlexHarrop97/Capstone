@@ -1,6 +1,4 @@
-<?php 
-
-include('scripts/getUser.php');
+<?php
 
 session_start();
 
@@ -19,18 +17,20 @@ else {
 	header('Location: login.php');
 }
 
+
+echo $userFName;
+
+
+
 function SignOut() {
 
-	$_SESSION["User"] == "";
-	session_destroy();
+	
 }
-
-echo $userEmail . $userPassword . $userFirstName . $userLastName;
 
 ?>
 <html>
 <body>
-<span><a action="SignOut()" href="login.php">Sign Out</a></span>
+<form action="scripts/signoff.php"><input type="submit" placeholder="Log Off"/></form>
 
 
 </body>

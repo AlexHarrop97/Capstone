@@ -25,10 +25,10 @@ if (!isset($_GET["loggedIn"])) {
 // Displays the contents in database for todo's
 $getTodo = db->prepare("Select * FROM todo INNER JOIN projects ON todo.PROJECT_ID = projects.Project_ID");
 
-$userCheck = db->prepare("Select * FROM projects INNER JOIN users ON users.User_ID = projects.User_ID");
+
 
 $getTodo->FetchAll();
-$userCheck->FetchAll();
+
 
 foreach ($userCheck as $user) {
  	if ($user["User_ID"] = ) {
@@ -41,7 +41,7 @@ foreach ($userCheck as $user) {
  }
 */
 
-$query = $db->prepare("
+$stmt = $db->prepare("
 	SELECT todo.User_ID, Description, Status
 	FROM todo INNER JOIN projects ON todo.Project_ID = projects.Project_ID
 	WHERE todo.User_ID = projects.User_ID;

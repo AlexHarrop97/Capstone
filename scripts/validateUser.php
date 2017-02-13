@@ -3,7 +3,7 @@
 // This file completes the login, users are sent here from the login page
 // login.php is the default page of the website.
 
-require_once('../db.php');
+require_once('../dependencies/db.php');
 
 try {
 

@@ -2,7 +2,7 @@
 // this is where the user is created
 // the information is obtained from the register_user.php file using post method
 
-require_once('../db.php');
+require_once('../dependencies/db.php');
 
 try {
 	
@@ -19,8 +19,26 @@ try {
 	$stmt->bindParam(':fname', $FirstName);
 	$stmt->bindParam(':lname', $LastName);
 
+<<<<<<< HEAD
+	// this checks to see if both password and passConfirm match before it is thrown into the database
+	// if the passwords match, the statment will execute
+	// if not, the user will have to try again.
+	
+
+
+	foreach ($result as $email) {
+
+		if ($email["Email"] == $_POST["userName"]) {
+
+			echo "This email address is already registered to an account. ";
+		}
+	}
+
+	if ($_POST["password"] != $_POST["passConfirm"]) {
+=======
 	$Password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 	$stmt->execute();
+>>>>>>> 7f9a1bf5d380761b866588f52b05140ebc1561b0
 
 	echo "Successfully Registered!";
 	

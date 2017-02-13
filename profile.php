@@ -1,7 +1,33 @@
 <?php
+require_once('dependencies/db.php');
+
 session_start();
 
-require_once("db.php");
+try {
+    
+    $stmt = $db->prepare("SELECT * FROM users");
+    $stmt->execute();
+    $users = $stmt->fetchAll();
+    
+    foreach ($users as $user) {
+
+        if ($user["Email"] == $_SESSION["User"]) {
+
+            $userID = $user["User_ID"];
+            $userFName = $user["FirstName"];
+            $userLName = $user["LastName"];
+            $userEmail = $user["Email"];
+            $userPass = $user["P4WD"];
+        }
+    }
+}
+catch (PDOException $e) {
+    
+    die('ERROR: ' . $e->getMessage());
+}
+
+echo 'my name is ' . $userFName;
+
 if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 
     echo "You are currently logged in as " . $_SESSION["User"];
