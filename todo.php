@@ -1,6 +1,6 @@
 <?php
 require_once('db.php');
-require_once('login.php');
+
 
 session_start();
 
@@ -8,6 +8,9 @@ if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 
 	echo "You are currently logged in as " . $_SESSION["User"];
 }
+
+
+/*
 else {
 
 	//redirect user back to login.php if the session does not exist
@@ -18,7 +21,7 @@ if (!isset($_GET["loggedIn"])) {
 
 	SignOut();
 }
-/*
+
 // Displays the contents in database for todo's
 $getTodo = db->prepare("Select * FROM todo INNER JOIN projects ON todo.PROJECT_ID = projects.Project_ID");
 
@@ -45,7 +48,7 @@ $query = $db->prepare("
 ");
 
 $query->execute([
-	'userid' => $_SESSION['User']
+	'userid' => $_SESSION['User_ID']
 	]);
 
 $items = $query->rowCount() ? $query : [];
@@ -79,7 +82,7 @@ foreach ($items as $item) {
 			<ul>
 				<li><span class="item<?php echo $item['Status'] ? ' Status' : '' ?>"><?php echo $item['Description'];?></span>
 					<?php if(!$item['Status']): ?>
-						<a href="done.php?as=status&item=<?php echo $item['id']; ?>" class="mark-done">
+						<a href="done.php?as=status&item=<?php echo $item['Todo_ID']; ?>" class="mark-done">
 					<?php endif; ?>
 				</li>	
 			</ul>
