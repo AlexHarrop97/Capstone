@@ -18,7 +18,7 @@ if (!isset($_GET["loggedIn"])) {
 
 	SignOut();
 }
-/*
+/
 // Displays the contents in database for todo's
 $getTodo = db->prepare("Select * FROM todo INNER JOIN projects ON todo.PROJECT_ID = projects.Project_ID");
 
@@ -36,7 +36,6 @@ foreach ($userCheck as $user) {
  		echo "you do not have access to this project";
  	}
  }
-*/
 
 $stmt = $db->prepare("
 	SELECT todo.User_ID, Description, Status

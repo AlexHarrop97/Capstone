@@ -26,7 +26,7 @@ try{
 
 
             ?>
-           <h2>Welcome to your profile page, <?php echo $UserFName." ".$UserLName; ?></h2>
+           <h2>Welcome to your profile page, <?php echo $UserFName." ".$UserLName. "<br /> userID ".$UserID ?></h2>
             <?php
         }
 
@@ -40,6 +40,7 @@ catch (PDOException $e) {
     die('Sign In Failed! ');
 }
 
+//*************** NEED TO ADD IN THE GOD DAMN SEARCH FOR THE CURRENT TO-DO LIST
 
 ?>
 <!DOCTYPE html>
@@ -68,8 +69,8 @@ catch (PDOException $e) {
             </li>
         </ul>
     <?php endif; ?>
-    <form action="add" method="post">
-        <input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off" action="add.php">
+    <form action="scripts/addTodo.php?userID=<?php echo $UserID?>" method="post">
+        <input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off">
         <input type="submit" value="Add" class="submit">
     </form>
 </div>
