@@ -32,7 +32,7 @@ try {
 		echo "The passwords do not match!";
 	}
 	//This is an email check to see if a user already exists with the specified username
-	else if ($result == $Email) {
+	else if ( !emailCheck($results, $Email) == false ) {
 
 		echo "This email address is already registered to an account. ";
 	}
@@ -43,14 +43,32 @@ try {
 		$Password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 		$stmt->execute();
 
+		echo $result[0];
 		echo "Successfully Registered!";
 
 		//redirect user back to homepage
-		header('Location: ../index.php');
+		//header('Location: ../index.php');
 	}
 }
 catch (PDOException $e) {
 	
 	die('Failed Query: ' . $e->getMessage());
+}
+
+
+
+function emailCheck($fetchResults, $emailIn) {
+
+	foreach($fetchResults as $found) {
+
+		if($found["Email"] == $emailIn) {
+
+			return false;
+		}
+		else {
+
+			return true;
+		}
+	}
 }
 ?>
