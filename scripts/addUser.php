@@ -23,14 +23,21 @@ try {
 	$stmt->bindParam(':fname', $FirstName);
 	$stmt->bindParam(':lname', $LastName);
 
-	
-	
+	//This is an email check to see if a user already exists with the specified username
+	foreach ($result as $found) {
+
+		if ($found["Email"] == $_POST["userName"]) {
+
+			echo "This email address is already registered to an account. ";
+		}
+	}
 
 	//This is a password check so the user enters the correct password
 	if ($_POST["password"] != $_POST["passConfirm"]) {
 
 		echo "The passwords do not match!";
 	}
+<<<<<<< HEAD
 	//This is an email check to see if a user already exists with the specified username
 	else if ( !emailCheck($results, $Email) == false ) {
 
@@ -38,6 +45,8 @@ try {
 	}
 	//This occurs if the above statements are not true
 	//the email cannot match an existing email and the passwords must match on register.php
+=======
+>>>>>>> parent of 30a1635... addUser.php refactor and documentation
 	else {
 
 		$Password = password_hash($_POST["password"], PASSWORD_DEFAULT);
