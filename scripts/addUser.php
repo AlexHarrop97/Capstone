@@ -45,11 +45,11 @@ try {
 		echo "Successfully Registered!";
 
 		//redirect user back to homepage
-		header('Location: index.php');
+		header('Location: ../index.php');
 	}
 }
 catch (PDOException $e) {
 	
-	die('Failed Query: ' . $e->getMessage(););
+	die('Failed Query: ' . $e->getMessage());
 }
 ?>
