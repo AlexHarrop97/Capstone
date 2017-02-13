@@ -26,6 +26,7 @@ try {
 }
 catch (PDOException $e) { 
 
+	die('WARNING: ' . $e->getMessage());
 }
 
 
