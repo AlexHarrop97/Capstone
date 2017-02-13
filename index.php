@@ -19,7 +19,6 @@ else {
 ?>
 <html>
 <body>
-
-
+<form action="scripts/logout.php" method="post"><input type="submit" value="Logout" /></form>
 </body>
 </html>
