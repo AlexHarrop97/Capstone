@@ -30,7 +30,7 @@ function SignOut() {
 ?>
 <html>
 <body>
-<form action="scripts/signoff.php"><input type="submit" placeholder="Log Off"/></form>
+<form action=""><input type="submit" placeholder="Log Off"/></form>
 
 
 </body>
