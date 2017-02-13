@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once('scripts/getComments.php');
+require('scripts/getComments.php');
 
 
 
