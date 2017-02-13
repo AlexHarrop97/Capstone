@@ -30,7 +30,6 @@ function SignOut() {
 ?>
 <html>
 <body>
-<form action=""><input type="submit" placeholder="Log Off"/></form>
 
 
 </body>
