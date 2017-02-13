@@ -19,12 +19,10 @@ try {
 	$stmt->bindParam(':fname', $FirstName);
 	$stmt->bindParam(':lname', $LastName);
 
-	// this checks to see if both password and passConfirm match before it is thrown into the database
-	// if the passwords match, the statment will execute
-	// if not, the user will have to try again.
+	
 	
 
-
+	//This is an email check to see if a user already exists with the specified username
 	foreach ($result as $email) {
 
 		if ($email["Email"] == $_POST["userName"]) {
@@ -33,6 +31,7 @@ try {
 		}
 	}
 
+	//This is a password check so the user enters the correct password
 	if ($_POST["password"] != $_POST["passConfirm"]) {
 
 	$Password = password_hash($_POST["password"], PASSWORD_DEFAULT);
