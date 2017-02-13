@@ -19,13 +19,13 @@ try {
 	$getComment->execute();
 	$comments = $getComment->fetchAll();
 
-	foreach ($comments as $comment) {
+	/*foreach ($comments as $comment) {
 
 		echo $comment[""]
 
 		if ($comment["User_ID"])
 	}
-
+*/
 
 	foreach ($users as $user) {
 
@@ -35,7 +35,6 @@ try {
 
 }
 catch (PDOException $e) { 
-
 }
 
 

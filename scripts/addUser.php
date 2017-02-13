@@ -19,7 +19,6 @@ try {
 	$stmt->bindParam(':fname', $FirstName);
 	$stmt->bindParam(':lname', $LastName);
 
-<<<<<<< HEAD
 	// this checks to see if both password and passConfirm match before it is thrown into the database
 	// if the passwords match, the statment will execute
 	// if not, the user will have to try again.
@@ -35,16 +34,16 @@ try {
 	}
 
 	if ($_POST["password"] != $_POST["passConfirm"]) {
-=======
+
 	$Password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 	$stmt->execute();
->>>>>>> 7f9a1bf5d380761b866588f52b05140ebc1561b0
 
 	echo "Successfully Registered!";
 	
 	
 	//redirect user back to homepage
-	//header('Location: index.php');
+	header('Location: index.php');
+	}
 }
 catch (PDOException $e) {
 	
