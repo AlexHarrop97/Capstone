@@ -1,5 +1,5 @@
 <?php
-require_once('db.php');
+require_once('dependencies/db.php');
 
 
 session_start();
@@ -48,7 +48,7 @@ $query = $db->prepare("
 ");
 
 $query->execute([
-	'userid' => $_SESSION['User_ID']
+	'user' => $_SESSION["User"]
 	]);
 
 $items = $query->rowCount() ? $query : [];
@@ -87,7 +87,7 @@ foreach ($items as $item) {
 				</li>	
 			</ul>
 			<?php endif; ?>
-			<form action="add" method="post">
+			<form action="add.php" method="post">
 				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off" action="add.php">
 				<input type="submit" value="Add" class="submit">
 			</form>

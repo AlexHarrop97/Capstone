@@ -1,5 +1,5 @@
 <?php 
-require_once("db.php");
+require_once('dependencies/db.php');
 
 if(isset($_GET['as'], $_GET['item'])) {
 	$as = $_GET['as'];
@@ -17,7 +17,7 @@ if(isset($_GET['as'], $_GET['item'])) {
 
 			$doneQuery->execute([
 				'item' => $item, 
-				'user' => $_SESSION['User_ID']
+				'user' => $_SESSION["User"]
 			]);
 		break;
 	}
