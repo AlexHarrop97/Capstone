@@ -37,8 +37,7 @@ try {
 
 		echo "The passwords do not match!";
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	//This is an email check to see if a user already exists with the specified username
 	else if ( !emailCheck($results, $Email) == false ) {
 
@@ -46,10 +45,6 @@ try {
 	}
 	//This occurs if the above statements are not true
 	//the email cannot match an existing email and the passwords must match on register.php
-=======
->>>>>>> parent of 30a1635... addUser.php refactor and documentation
-=======
->>>>>>> parent of 30a1635... addUser.php refactor and documentation
 	else {
 
 		$Password = password_hash($_POST["password"], PASSWORD_DEFAULT);
