@@ -5,6 +5,6 @@ session_start();
 $_SESSION["User"] = "";
 
 session_destroy();
-header('Location: ../index.php');
+header('Location: ../login.php');
 
 ?>

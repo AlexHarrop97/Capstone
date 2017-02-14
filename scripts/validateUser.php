@@ -23,9 +23,9 @@ try {
 					
 		// if the user does not exists(if the email in the db is null)
 		// send the user back to login.php
-		if ($user['Email'] != $_POST["email"] || !password_verify($_POST["password"], $user["P4WD"])) {
+		if (!password_verify($_POST["password"], $user["P4WD"])) {
 
-			header('url: ../login.php');
+			header('Location: ../login.php?loginSuccess=false');
 		}
 		
 		else {
