@@ -13,7 +13,7 @@ session_start();
 
 <body>
 	<form action="scripts/sendComments.php" method="post">
-	<textarea name="commentBox">Type your message here...</textarea>
+	<input type="textarea" name="msgBox" value="Type your message here..."></input>
 	<input type="submit" />
 	</form>
 </body>

@@ -31,7 +31,10 @@ try {
 		else {
 			// if the user exists(checking a valid email and password combo)
 			// set a session variable and send the user to index.php
-			$_SESSION["User"] = $user["Email"];
+			$_SESSION["User_ID"] = $user["User_ID"];
+			$_SESSION["User_FName"] = $user["FirstName"];
+			$_SESSION["User_LName"] = $user["LastName"];
+			$_SESSION["User_Email"] = $user["Email"];
 			echo $_SESSION["User"];
 
 			//redirect user back to homepage
