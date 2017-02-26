@@ -1,5 +1,12 @@
 <?php
+if ( isset($_GET['loginSuccess']) && !empty($_GET['loginSuccess']) ) { 
+	
+	echo " ";
+}
+else {
 
+	echo "Please log in using existing user credentials. ";
+}
 
 
 ?>
@@ -15,7 +22,7 @@ Password: <input type="password" name="password" />
 
 <span><a href="register.php">Register Here</a></span><br/>
 <?php
-if ($_GET["loginSuccess"] == 'false') { 
+if ( isset($_GET['loginSuccess']) && !empty($_GET['loginSuccess']) && $_GET['loginSuccess'] == 'false' ) { 
 
 	echo "You have entered an invalid email and password combination.";
 
