@@ -5,7 +5,7 @@ require_once('../db.php');
 
 try {
 
-    $ProjectName = $_POST["add"];
+    $ProjectName = $_POST["ProjectName"];
     $UserID = $_GET['userID'];
 
     $stmt = $db->prepare("INSERT INTO projects (User_ID, Admin, ProjectName) VALUES (:user_id, :admin_id, :projectname)");
@@ -18,8 +18,8 @@ try {
 
 }
 catch (PDOException $e) {
-    echo $UserID.$Description;
-    die('New Todo Failed!');
+    echo $UserID.$ProjectName;
+    die('New Proejct Failed!');
 
 }
 

@@ -2,12 +2,12 @@
 session_start();
 require_once('../db.php');
 
-
+echo $_GET['ProjectID'];
 try {
 
     $Description = $_POST["add"];
-    $UserID = $_GET['userID'];
-    $ProjectID = 4;
+    $UserID = $_GET['UserID'];
+    $ProjectID = $_GET['ProjectID'];
 
     $stmt = $db->prepare("INSERT INTO todo (User_ID, Project_ID, Description) VALUES (:user_id, :project_id, :description)");
     $stmt->bindParam(':description', $Description);
@@ -19,11 +19,11 @@ try {
 
 }
 catch (PDOException $e) {
-    echo $UserID.$Description;
-    die('Adding Todo Failed');
+    echo $UserID.$Description.$ProjectID;
+    die('New Todo Failed!');
 
 }
 
-echo $UserID;
+echo $UserID
 ?>
 

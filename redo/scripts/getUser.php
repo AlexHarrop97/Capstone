@@ -26,9 +26,8 @@ try {
         if (password_verify($Password, $user["P4WD"])) {
 
             $_SESSION['Email'] = $Email;
-            $_SESSION['Password'] = $Password;
             $_SESSION['UserID'] = $user['User_ID'];
-            header('Location: ../profile.php');
+            header('Location: ../profilenew.php');
 
         }
 

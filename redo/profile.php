@@ -28,6 +28,20 @@ try{
             ?>
            <h2>Welcome to your profile page, <?php echo $UserFName." ".$UserLName. "<br /> userID ".$UserID ?></h2>
             <?php
+            ////////////////
+            /////GET TO-DOS
+            $stmt = $db->prepare('SELECT * FROM todo WHERE User_ID=:User_ID');
+            $stmt->bindParam(':User_ID', $UserID);
+            $stmt->execute();
+            while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
+                $Todo =$row["Todo_ID"];
+                $Description = $row["Description"];
+                ?>
+                    ID: <?php echo $Todo?> | Description: <?php echo $Description?><br />
+                <?php
+            }
+
+
         }
 
         else {
@@ -41,16 +55,13 @@ catch (PDOException $e) {
 }
 
 //*************** NEED TO ADD IN THE GOD DAMN SEARCH FOR THE CURRENT TO-DO LIST
+////it's there I guess
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
     <title>Profile</title>
-=======
-    <title>Todo List</title>
->>>>>>> 35519da983aaf91d4bd283179e2f634f3e51daa7
     <script type="text/javascript"
             src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
 </head>
