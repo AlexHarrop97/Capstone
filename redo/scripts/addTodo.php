@@ -24,6 +24,6 @@ catch (PDOException $e) {
 
 }
 
-echo $UserID;
+echo $UserID
 ?>
 
