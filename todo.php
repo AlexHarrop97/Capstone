@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 require_once('dependencies/db.php');
 
@@ -113,7 +112,6 @@ $(function() {
 </script> -->
 </html>
 
-=======
 <?php
 require_once('db.php');
 require_once('login.php');
@@ -134,16 +132,16 @@ if (!isset($_GET["loggedIn"])) {
 
 	SignOut();
 }
-/
+
 // Displays the contents in database for todo's
-$getTodo = db->prepare("Select * FROM todo INNER JOIN projects ON todo.PROJECT_ID = projects.Project_ID");
+$getTodo = $db->prepare("Select * FROM todo INNER JOIN projects ON todo.PROJECT_ID = projects.Project_ID");
 
 
 
 $getTodo->FetchAll();
 
 
-foreach ($userCheck as $user) {
+/*foreach ($userCheck as $user) {
  	if ($user["User_ID"] = ) {
  		echo "You have access";
  	}
@@ -151,7 +149,7 @@ foreach ($userCheck as $user) {
  	{
  		echo "you do not have access to this project";
  	}
- }
+ }*/
 
 $stmt = $db->prepare("
 	SELECT todo.User_ID, Description, Status
@@ -225,4 +223,4 @@ $(function() {
 </script> -->
 </html>
 
->>>>>>> 35519da983aaf91d4bd283179e2f634f3e51daa7
+
