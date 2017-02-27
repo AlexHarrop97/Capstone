@@ -65,8 +65,7 @@ foreach ($items as $item) {
 <html>
 <head>
 	<title>Todo List</title>
-	<script type="text/javascript"
-    src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
 </head>
 <style type="text/css">
 	ul {
