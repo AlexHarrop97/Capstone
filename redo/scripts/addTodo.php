@@ -20,7 +20,7 @@ try {
 }
 catch (PDOException $e) {
     echo $UserID.$Description;
-    die('New Todo Failed!');
+    die('Adding Todo Failed');
 
 }
 
