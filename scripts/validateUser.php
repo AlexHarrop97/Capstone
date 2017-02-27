@@ -23,15 +23,18 @@ try {
 					
 		// if the user does not exists(if the email in the db is null)
 		// send the user back to login.php
-		if ($user['Email'] != $_POST["email"] || !password_verify($_POST["password"], $user["P4WD"])) {
+		if (!password_verify($_POST["password"], $user["P4WD"])) {
 
-			header('url: ../login.php');
+			header('Location: ../login.php?loginSuccess=false');
 		}
 		
 		else {
 			// if the user exists(checking a valid email and password combo)
 			// set a session variable and send the user to index.php
-			$_SESSION["User"] = $user["Email"];
+			$_SESSION["User_ID"] = $user["User_ID"];
+			$_SESSION["User_FName"] = $user["FirstName"];
+			$_SESSION["User_LName"] = $user["LastName"];
+			$_SESSION["User_Email"] = $user["Email"];
 			echo $_SESSION["User"];
 
 			//redirect user back to homepage
