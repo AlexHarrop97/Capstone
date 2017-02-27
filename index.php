@@ -36,8 +36,8 @@ else {
 ?>
 <!-- CHANGE PASSWORD FORM -->
 <form action="scripts/changePass.php" method="post">
-Current Password: <input type="text" name="currentPass" />
-New Password: <input type="text" name="newPass" />
+Current Password: <input type="password" name="currentPass" />
+New Password: <input type="password" name="newPass" />
 Confirm New Password: <input type="password" name="newPassConfirm" />
 <input type="submit" />
 

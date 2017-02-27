@@ -9,10 +9,20 @@ try {
 	$NewPass = $_POST["newPass"];
 	$NewPassConfirm = $_POST["newPassConfirm"];
 
-	$stmt = $db->prepare("UPDATE users SET P4WD=:pass");
-	$stmt->bindParam(':pass', $NewPass);
+	$passCheck = $db->prepare("SELECT * FROM users");
+	$passCheck->execute();
+	$users = $passCheck->fetchAll();
 
-	if (!password_verify($_POST["currentPass"], $_SESSION["User_Pass"])) {
+	foreach ($users as $user) {
+
+		if (password_verify($_POST["currentPass"], $user["P4WD"])) 
+		{
+			$password = $user["P4WD"];
+		}
+		
+	}
+
+	if (!password_verify($_POST["currentPass"], $password)) {
 
 		echo "Your current password is incorrect!";
 	}
@@ -25,6 +35,8 @@ try {
 	//the email cannot match an existing email and the passwords must match on register.php
 	else {
 
+		$stmt = $db->prepare("UPDATE users SET P4WD=:pass");
+		$stmt->bindParam(':pass', password_hash($NewPass, PASSWORD_DEFAULT));
 		$stmt->execute();
 		
 		echo "Password Successfully Changed!";
