@@ -8,7 +8,6 @@
 <html>
 <body>
 
-<p><strong>Error: </strong>Class <em>brendanize.php </em>contains errors on lines: 5, 8, 20, 60 near either ';' or '}'. Please consult the php and mysql documentation for more details(error only occurs if you have a brendan working on a project with you).</p>
 <!-- LOGIN FORM -->
 <form action="scripts/validateUser.php" method="post">
 Email: <input type="text" name="email" />
