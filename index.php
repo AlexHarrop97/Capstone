@@ -19,7 +19,28 @@ else {
 ?>
 <html>
 <body>
-<form action="scripts/logout.php" method="post"><input type="submit" value="Logout" /></form><br/><br/>
+<form action="scripts/logout.php" method="post"><input type="submit" value="Logout" /></form>
+
+<?php
+
+if ( isset($_SESSION["User_ID"]) != "" ) {
+
+	echo "Change your password here: ";
+	
+}
+else {
+
+	//redirect user back to login.php if the session does not exist
+	header('Location: login.php');
+}
+?>
+<!-- CHANGE PASSWORD FORM -->
+<form action="scripts/changePass.php" method="post">
+Current Password: <input type="text" name="currentPass" />
+New Password: <input type="text" name="newPass" />
+Confirm New Password: <input type="password" name="newPassConfirm" />
+<input type="submit" />
+
 
 <a href="profile.php">
 <a href="todo.php">

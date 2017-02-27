@@ -40,7 +40,7 @@ try {
 	}
 
 	//This is an email check to see if a user already exists with the specified username
-	else if ( !emailCheck($results, $Email) == false ) {
+	else if ( !emailCheck($result, $Email) == false ) {
 
 		echo "This email address is already registered to an account. ";
 	}
@@ -50,8 +50,7 @@ try {
 
 		$Password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 		$stmt->execute();
-
-		echo $result[0];
+		
 		echo "Successfully Registered!";
 
 		//redirect user back to homepage

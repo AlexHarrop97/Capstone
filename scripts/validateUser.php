@@ -36,6 +36,7 @@ try {
 			$_SESSION["User_FName"] = $user["FirstName"];
 			$_SESSION["User_LName"] = $user["LastName"];
 			$_SESSION["User_Email"] = $user["Email"];
+			$_SESSION["User_Pass"] = $user["P4WD"];
 			echo $_SESSION["User"];
 
 			//redirect user back to homepage
