@@ -34,24 +34,4 @@ if ( isset($_GET['loginSuccess']) && !empty($_GET['loginSuccess']) && $_GET['log
 
 
 </body>
-<?php
-
-
-
-?>
-
-<html>
-<body>
-
-<!-- LOGIN FORM -->
-<form action="todo.php" method="post">
-Email: <input type="text" name="email" />
-Password: <input type="password" name="password" />
-<input type="submit" />
-
-<span><a href="register.php">Register Here</a></span>
-</form>
-
-
-</body>
 </html>
