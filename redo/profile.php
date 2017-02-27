@@ -46,7 +46,11 @@ catch (PDOException $e) {
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
     <title>Profile</title>
+=======
+    <title>Todo List</title>
+>>>>>>> 35519da983aaf91d4bd283179e2f634f3e51daa7
     <script type="text/javascript"
             src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
 </head>
