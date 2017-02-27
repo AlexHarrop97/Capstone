@@ -42,7 +42,9 @@ try {
 		echo "Password Successfully Changed!";
 
 		//redirect user back to homepage
-		//header('Location: ../index.php');
+		session_unset();
+		session_destroy();
+		header('Location: ../login.php?passChange=true');
 	}
 }
 catch (PDOException $e) {
