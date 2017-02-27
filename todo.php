@@ -86,7 +86,7 @@ foreach ($items as $item) {
 				</li>	
 			</ul>
 			<?php endif; ?>
-			<form action="add.php" method="post">
+			<form action="redo/scripts/addTodo.php<?php echo $_SESSION['UserID']?>" method="post">
 				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off" action="add.php">
 				<input type="submit" value="Add" class="submit">
 			</form>
