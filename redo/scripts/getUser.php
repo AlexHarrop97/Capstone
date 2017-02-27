@@ -1,34 +1,46 @@
 <?php
+
+// This file completes the login, users are sent here from the login page
+// login.php is the default page of the website.
+
 require_once('../db.php');
-
-session_start();
-
 
 try {
 
-	$Email = $_POST["userName"];
-	$Password = $_POST["password"];
+    $Email = $_POST["userName"];
+    $Password = $_POST["password"];
 
-	$stmt = $db->prepare('SELECT * FROM users WHERE Email=:email');
-	$stmt->bindParam(':email', $Email);
-	$row = mysql_fetch_array($stmt);
-	$stmt->execute();
-	
-	while ($row == $stmt->fetch(PDO::FETCH_ASSOC)) {
-		if (password_verify ($Password, $row['password'])){
-			echo "IN";
-			//$_SESSION['userName'] = $Email;
-			//header("Location: login.php?Email=".$Email);
-		} else {
-			echo "ERROR WRONG PASS";
-		}
-	}
-} catch (PDOException $e) {
-	die ("Connection Unsuccessful");
+    // Select all using user and password textboxes on login.php
+    $stmt = $db->prepare('SELECT * FROM users WHERE Email=:email');
+    $stmt->bindParam(':email', $Email);
+    $stmt->execute();
+    $users = $stmt->fetchAll();
+
+    // start the session, set the session variable for User
+    // then redirect back to index.php
+    session_start();
+
+    // check the user to see if it exists within the database
+    foreach ($users as $user) {
+
+        if (password_verify($Password, $user["P4WD"])) {
+
+            $_SESSION['Email'] = $Email;
+            $_SESSION['Password'] = $Password;
+            $_SESSION['UserID'] = $user['User_ID'];
+            header('Location: ../profile.php');
+
+        }
+
+        else {
+
+            header('Location: ../login.php?loginSuccess=0');
+            echo "<p>Password doesn't match</p>";
+        }
+    }
 }
+catch (PDOException $e) {
 
-
-
-
-
+    die('Sign In Failed! ');
+}
 ?>
