@@ -197,8 +197,8 @@ foreach ($items as $item) {
 				</li>	
 			</ul>
 			<?php endif; ?>
-			<form action="add" method="post">
-				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off" action="add.php">
+			<form action="redo/addTodo.php?User_ID=<?php echo $_SESSION['User_ID']?>" method="post">
+				<input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off" action="redo/addTodo.php?User_ID=<?php echo $_SESSION['User_ID']?>
 				<input type="submit" value="Add" class="submit">
 			</form>
 	</div>
