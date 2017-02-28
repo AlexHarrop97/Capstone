@@ -15,6 +15,7 @@ try {
     $stmt->execute();
 
     echo "fuck yea";
+    header('Location: ../profilenew.php');
 
 }
 catch (PDOException $e) {

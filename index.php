@@ -24,8 +24,6 @@ else {
 <?php
 
 if ( isset($_SESSION["User_ID"]) != "" ) {
-
-	echo "Change your password here: ";
 	
 }
 else {
@@ -34,12 +32,19 @@ else {
 	header('Location: login.php');
 }
 ?>
-<!-- CHANGE PASSWORD FORM -->
-<form action="scripts/changePass.php" method="post">
-Current Password: <input type="password" name="currentPass" />
-New Password: <input type="password" name="newPass" />
-Confirm New Password: <input type="password" name="newPassConfirm" />
-<input type="submit" />
+<div class="UserInfo">
+	<!-- CHANGE PASSWORD FORM -->
+	<form action="scripts/changePass.php" method="post">
+	<table>
+		<?php echo $_SESSION["User_ID"];?>
+		<thead>Change your PW</thead>
+		<tr><td>Current Password:</td><td><input type="password" name="currentPass" /></td></tr>
+		<tr><td>New Password:</td><td><input type="password" name="newPass" /></td></tr>
+		<tr><td>Confirm New Password:</td><td><input type="password" name="newPassConfirm" /></td></tr>
+		<tr><td></td><td><input type="submit" /></td></tr>
+	</table>
+	</form>
+</div>
 
 
 <a href="profile.php">

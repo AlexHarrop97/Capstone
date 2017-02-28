@@ -16,6 +16,7 @@ try {
     $stmt->execute();
 
     echo "fuck yea";
+    header('Location: ../project.php?ProjectID='.$ProjectID);
 
 }
 catch (PDOException $e) {

@@ -8,8 +8,14 @@ try {
 	
 	$NewPass = $_POST["newPass"];
 	$NewPassConfirm = $_POST["newPassConfirm"];
-
-	$passCheck = $db->prepare("SELECT * FROM users");
+	$User_ID = $_SESSION["User_ID"]
+	//WHAT THE FUCK IS THIS SHIT
+	//$passCheck = $db->prepare("SELECT * FROM users");
+	//YOU SHITTING ME RIGHT NOW
+	//GAWD DAMN, NO WONDER ONLY THE LATEST USER CAN LOG IN
+	//FUCK
+	$passCheck = $db->prepare('SELECT * FROM users WHERE User_ID=:User_ID');
+	$stmt->bindParam(':User_ID', $User_ID);
 	$passCheck->execute();
 	$users = $passCheck->fetchAll();
 
