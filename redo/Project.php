@@ -39,6 +39,7 @@ catch (PDOException $e) {
 
 <body>
 <h1>PROJECT PAGE</h1>
+<a href="profile.php">Back to profile...</a>
 <h2>Project Title: <?php echo $ProjectName?> | ID: <?php echo $ProjectID?></h2>
 <br /><br />
 <h2>TODOs</h2><br />
@@ -58,22 +59,21 @@ while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
     <input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off">
     <input type="submit" value="Add" class="submit">
 </form>
-<h2>Comments</h2>
+<br /><br />
+<h2>Comments</h2><br />
 <?php
-$stmt = $db->prepare('SELECT * FROM comments WHERE Message_Text=:Message_Text');
-$stmt->bindParam(':Message_ID', $MessageID);
+//to be worked on: search with == project ID
+$stmt = $db->prepare('SELECT * FROM COMMENTS');
+$stmt->bindParam(':Project_ID', $ProjectID);
 $stmt->execute();
 while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
-    $Todo =$row["Message_ID"];
-    $Description = $row["Message_Text"];
-    ?>
-    ID: <?php echo $Comment?> | Message: <?php echo $Message_Text?><br />
-    <?php
+   //get the comment text, username, etc etc
 }
 ?>
+<!-- Need to create page addcomment.php, doesn't exisit. pretty much sql code to insert comment where proejct ID == -->
 <form action="scripts/addComment.php?UserID=<?php echo $UserID?>&ProjectID=<?php echo $ProjectID?>" method="post">
     <input type="text" name="add" placeholder="Add a new comment" class="input" autocomplete="off">
-    <input type="submit" value="Add Comment" class="submit">
+    <input type="submit" value="Add" class="submit">
 </form>
 </body>
 
