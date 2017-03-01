@@ -23,28 +23,17 @@ try {
 	$stmt->bindParam(':fname', $FirstName);
 	$stmt->bindParam(':lname', $LastName);
 
-	//This is an email check to see if a user already exists with the specified username
-	foreach ($result as $found) {
-
-		if ($found["Email"] == $_POST["userName"]) {
-
-			echo "This email address is already registered to an account. ";
-		}
-	}
-
-	//This is a password check so the user enters the correct password
+	// PASSWORD CHECK
 	if ($_POST["password"] != $_POST["passConfirm"]) {
 
 		echo "The passwords do not match!";
 	}
 
-	//This is an email check to see if a user already exists with the specified username
+	// EMAIL CHECK
 	else if ( !emailCheck($result, $Email) == false ) {
 
 		echo "This email address is already registered to an account. ";
 	}
-	//This occurs if the above statements are not true
-	//the email cannot match an existing email and the passwords must match on register.php
 	else {
 
 		$Password = password_hash($_POST["password"], PASSWORD_DEFAULT);
@@ -52,7 +41,6 @@ try {
 		
 		echo "Successfully Registered!";
 
-		//redirect user back to homepage
 		//header('Location: ../index.php');
 	}
 }
