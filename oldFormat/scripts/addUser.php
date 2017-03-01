@@ -2,7 +2,7 @@
 // this is where the user is created
 // the information is obtained from the register_user.php file using post method
 
-require_once('../db.php');
+require_once('..\dependencies/db.php');
 
 try {
 	
