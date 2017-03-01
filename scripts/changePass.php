@@ -1,5 +1,8 @@
 
 <?php
+session_start();
+
+
 // this is where the user is created
 // the information is obtained from the register_user.php file using post method
 
