@@ -8,7 +8,9 @@ require_once('../dependencies/db.php');
 try {
 
 	// Select all using user and password textboxes on login.php
-	$stmt = $db->prepare("SELECT * FROM users");
+	$stmt = $db->prepare("SELECT * FROM users WHERE (Email = :email)");
+	$stmt->bindParam(':email', $_POST["email"]);
+
 
 	$stmt->execute();
 	$users = $stmt->fetchAll();
@@ -23,7 +25,6 @@ try {
 
 			header('Location: ../login.php?loginSuccess=false');
 		}
-		
 		else {
 
 			// start the session, set the session variable for User

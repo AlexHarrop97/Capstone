@@ -14,7 +14,7 @@ try {
     $stmt->bindParam(':projectname', $ProjectName);
     $stmt->execute();
 
-    echo "fuck yea";
+    echo "leaky linqy sinqy";
     header('Location: ../profile.php');
 
 }

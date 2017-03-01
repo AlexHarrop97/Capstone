@@ -13,12 +13,8 @@ try {
 	$NewPass = $_POST["newPass"];
 	$NewPassConfirm = $_POST["newPassConfirm"];
 
-	if (!password_verify($_POST["currentPass"], $_SESSION["User_Password"])) {
-
-		echo "Your current password is incorrect!";
-	}
 	//This is a password check so the user enters the correct password
-	else if ($_POST["newPass"] != $_POST["newPassConfirm"]) {
+	if ($_POST["newPass"] != $_POST["newPassConfirm"]) {
 
 		echo "The passwords do not match!";
 	}
@@ -26,10 +22,9 @@ try {
 	//the email cannot match an existing email and the passwords must match on register.php
 	else {
 
-		$stmt = $db->prepare("UPDATE users SET P4WD=:newPass WHERE (Email = :email AND P4WD = :oldPass)");
+		$stmt = $db->prepare("UPDATE users SET P4WD=:newPass WHERE (Email = :email)");
 		$stmt->bindParam(':newPass', password_hash($NewPass, PASSWORD_DEFAULT));
 		$stmt->bindParam(':email', $_SESSION["User_Email"]);
-		$stmt->bindParam(':oldPass', password_verify($_POST["currentPass"], $_SESSION["User_Password"]));
 		$stmt->execute();
 		
 		echo "Password Successfully Changed!";
