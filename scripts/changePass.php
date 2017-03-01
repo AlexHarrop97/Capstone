@@ -9,8 +9,6 @@ try {
 	
 	$NewPass = $_POST["newPass"];
 	$NewPassConfirm = $_POST["newPassConfirm"];
-		
-	}
 
 	if (!password_verify($_POST["currentPass"], $_SESSION["User_Password"])) {
 
