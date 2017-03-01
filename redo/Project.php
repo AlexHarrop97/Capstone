@@ -70,7 +70,7 @@ while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
    //get the comment text, username, etc etc
 }
 ?>
-<!-- Need to create page addcomment.php, doesn't exisit. pretty much sql code to insert comment where project ID == -->
+
 <form action="scripts/addComment.php?UserID=<?php echo $UserID?>&ProjectID=<?php echo $ProjectID?>" method="post">
     <input type="text" name="add" placeholder="Add a new comment" class="input" autocomplete="off">
     <input type="submit" value="Add" class="submit">
