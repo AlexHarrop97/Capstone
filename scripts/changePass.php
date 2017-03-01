@@ -26,9 +26,10 @@ try {
 	//the email cannot match an existing email and the passwords must match on register.php
 	else {
 
-		$stmt = $db->prepare("UPDATE users SET P4WD=:pass WHERE (Email = :email)");
-		$stmt->bindParam(':pass', password_hash($NewPass, PASSWORD_DEFAULT));
+		$stmt = $db->prepare("UPDATE users SET P4WD=:newPass WHERE (Email = :email AND P4WD = :oldPass)");
+		$stmt->bindParam(':newPass', password_hash($NewPass, PASSWORD_DEFAULT));
 		$stmt->bindParam(':email', $_SESSION["User_Email"]);
+		$stmt->bindParam(':oldPass', password_verify($_POST["currentPass"], $_SESSION["User_Password"])
 		$stmt->execute();
 		
 		echo "Password Successfully Changed!";
