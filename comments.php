@@ -1,3 +1,21 @@
+<<<<<<< HEAD
+<?php
+session_start();
+
+
+
+
+
+?>
+<html>
+<head>
+
+</head>
+
+<body>
+	
+</body>
+=======
 <?php
 session_start();
 
@@ -38,4 +56,5 @@ require('scripts/getComments.php');
 	</form>
 </body>
 
+>>>>>>> origin/master
 </html>
