@@ -16,7 +16,7 @@ try {
 	$sendComment->bindParam(':pID', $tempProjectID);
 	$sendComment->execute();
 
-	//header('Location: ../comments.php');
+	header('Location: ../index.php');
 
 }
 catch (PDOException $e) { 

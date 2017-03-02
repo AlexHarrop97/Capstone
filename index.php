@@ -1,4 +1,5 @@
 <?php
+require_once('dependencies/db.php');
 
 session_start();
 
@@ -45,9 +46,38 @@ Confirm New Password: <input type="password" name="newPassConfirm" />
 
 <!-- SEND COMMENT -->
 <form action="scripts/sendComments.php" method="post">
-	<input type="textarea" name="msgBox" value="Type your message here..."></input>
+	<input type="textarea" name="msgBox" value=""></input>
 	<input type="submit" value="Send" name="submitMsg" />
 </form>
+
+<!-- GRAB COMMENTS -->
+<?php
+try {
+
+	$getComments = $db->prepare('SELECT * FROM comments INNER JOIN users ON users.User_ID = comments.User_ID WHERE Project_ID = :projectID ORDER BY Message_Time DESC');
+	$getComments->bindParam(':projectID', $_GET["Project_ID"]);
+	$getComments->execute();
+	$results = $getComments->fetchAll();
+
+	foreach ($results as $line) {
+
+		$template = "<p><strong>" . $line["User_FName"] . " " . $line["User_LName"] . "</strong> (" . $line["Message_Time"] . "):" . $line["Message_Text"] . ".</p><br/>";
+
+		echo $template;
+	}
+
+}
+catch (PDOException $e) {
+
+	echo "Query Failed: " . $e->getMessage();
+}
+
+
+?>
+
+
+
+
 
 
 <a href="profile.php">
