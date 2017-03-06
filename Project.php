@@ -1,104 +1,150 @@
-<?php
-
-session_start();
-require_once('db.php');
-require_once('todo.css');
-
-
-try{
-
-    $Email = $_SESSION['Email'];
-    $UserID = $_SESSION['UserID'];
-    $ProjectID = $_GET['ProjectID'];
-
-    //echo $Email.$UserID.$ProjectID;
-    $stmt = $db->prepare('SELECT * FROM Projects WHERE Project_ID=:Project_ID');
-    $stmt->bindParam(':Project_ID', $_GET['ProjectID']);
-    $stmt->execute();
-    while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
-         $ProjectName = $row["ProjectName"];
-    }
-
-}
-catch (PDOException $e) {
-    die('Project Failed! ');
-}
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Project</title>
-    <script type="text/javascript"
-            src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <!--Link to Main css document-->
+    <link rel="stylesheet" type="text/css" href="css/main.css"
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <style type="text/css">
     ul {
         list-style-type: none;
     }
-    .done {
-        text-decoration: line-through;
-    }
 </style>
 
-<body>
-<h1>PROJECT PAGE</h1>
-<a href="profile.php">Back to profile...</a>
-<h2>Project Title: <?php echo $ProjectName?> | ID: <?php echo $ProjectID?></h2>
-<br /><br />
-<h2>TODOs</h2><br />
+
+<!-- Navbar -->
+<nav>
+    <div class="nav-wrapper black">
+        <a href="index.php" class="brand-logo left">Project LinQ</a>
+        <ul id="nav-mobile" class="right">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="profile.php">Profile</a></li>
+            <li><a href="scripts/logout.php">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<?php
+session_start();
+require_once('/dependencies/db.php');
+try {
+    $Email = $_SESSION['Email'];
+    $UserID = $_SESSION['UserID'];
+    $ProjectID = $_GET['ProjectID'];
+    //echo $Email.$UserID.$ProjectID;
+    $stmt = $db->prepare('SELECT * FROM Projects WHERE Project_ID=:Project_ID');
+    $stmt->bindParam(':Project_ID', $_GET['ProjectID']);
+    $stmt->execute();
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $ProjectName = $row["ProjectName"];
+    }
+} catch (PDOException $e) {
+    die('Project Failed! ');
+}
+?>
+
+
+<!--Project-->
+<h2>Project Title: <?php echo $ProjectName ?> | ID: <?php echo $ProjectID ?></h2>
+<br/><br/>
+
+
+<h4>TODOs</h4><br/>
 <?php
 $stmt = $db->prepare('SELECT * FROM todo WHERE Project_ID=:Project_ID');
 $stmt->bindParam(':Project_ID', $ProjectID);
 $stmt->execute();
-while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
-    $Todo =$row["Todo_ID"];
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $Todo = $row["Todo_ID"];
     $Description = $row["Description"];
     ?>
-    ID: <?php echo $Todo?> | Description: <?php echo $Description?><br />
+    ID: <?php echo $Todo ?> | Description: <?php echo $Description ?><br/>
     <?php
 }
 ?>
-<form action="scripts/addTodo.php?UserID=<?php echo $UserID?>&ProjectID=<?php echo $ProjectID?>" method="post">
-    <input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off">
-    <input type="submit" value="Add" class="submit">
-</form>
-<br /><br />
-<h2>Comments</h2><br />
+<div class="row">
+    <div class="col s8">
+        <div class="card green accent-2">
+            <div class="card-content">
+                <form action="scripts/addTodo.php?UserID=<?php echo $UserID ?>&ProjectID=<?php echo $ProjectID ?>"
+                      method="post">
+                    <input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off">
+                    <input class="btn wave-effect black" type="submit" value="Add" class="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br/><br/>
+<h4>Comments</h4><br/>
 
 <!-- SEND COMMENT -->
-<form action="scripts/sendComments.php?ProjectID=<?php echo $ProjectID; ?>" method="post">
-    <input type="textarea" name="msgBox" value=""></input>
-    <input type="submit" value="Send" name="submitMsg" />
-</form>
+<div class="row">
+    <div class="col s8">
+        <div class="card green accent-2">
+            <div class="card-content">
+                <form action="scripts/sendComments.php?ProjectID=<?php echo $ProjectID; ?>" method="post">
+                    <input placeholder="Add Comment" class="input" type="text" name="msgBox" value="">
+                    <input class="btn wave-effect black" type="submit" value="Send" name="submitMsg"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- GRAB COMMENTS -->
 <?php
-
 try {
-
     $getComments = $db->prepare('SELECT * FROM comments INNER JOIN users ON users.User_ID = comments.User_ID WHERE Project_ID = :projectID ORDER BY Message_Time DESC');
     $getComments->bindParam(':projectID', $ProjectID);
     $getComments->execute();
     $results = $getComments->fetchAll();
-
     foreach ($results as $line) {
-
         //print_r($line);
         $template = "<p><strong>" . $line["FirstName"] . " " . $line["LastName"] . "</strong> (" . $line["Message_Time"] . "):" . $line["Message_Text"] . ".</p><br/>";
-
         echo $template;
     }
-
-}
-catch (PDOException $e) {
-
+} catch (PDOException $e) {
     echo "Query Failed: " . $e->getMessage();
 }
-
-
 ?>
 
+<!--Profile Link-->
+<div class="row center-align">
+    <a href="profile.php" class="waves-effect btn black">Back to profile...</a><br/><br/>
+</div>
+
+<!-- This is the footer -->
+
+<footer class="page-footer black">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Creators</h5>
+                <p class="grey-text text-lighten-4">Brendan, Nate, Alex, and Beau.</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">Press Me!</a>
+        </div>
+    </div>
+</footer>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
 </body>
+</html>
 
 
