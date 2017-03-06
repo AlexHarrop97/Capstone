@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <!--Import Google Icon Font-->
@@ -59,40 +60,20 @@ if (isset($_SESSION["User_ID"]) != "") {
                 <form action="scripts/changePass.php" method="post">
                     <input placeholder="New Password" type="password" name="newPass"/><br/>
                     <input placeholder="Confirm New Password" type="password" name="newPassConfirm"/><br/>
-                    <input type="submit" value="Change Password" name="submitPassChange"/>
+                    <input type="submit" class="btn wave-effect black" value="Change Password" name="submitPassChange"/>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
-
-<!-- SEND COMMENT -->
-<form action="scripts/sendComments.php" method="post">
-    <input type="textarea" name="msgBox" value=""/>
-    <input type="submit" value="Send" name="submitMsg"/>
-</form>
-
-
-<!-- GRAB COMMENTS -->
-<?php
-try {
-    $getComments = $db->prepare('SELECT * FROM comments INNER JOIN users ON users.User_ID = comments.User_ID WHERE Project_ID = :projectID ORDER BY Message_Time DESC');
-    $getComments->bindParam(':projectID', $_GET["Project_ID"]);
-    $getComments->execute();
-    $results = $getComments->fetchAll();
-    foreach ($results as $line) {
-        $template = "<p><strong>" . $line["User_FName"] . " " . $line["User_LName"] . "</strong> (" . $line["Message_Time"] . "):" . $line["Message_Text"] . ".</p><br/>";
-        echo $template;
-    }
-} catch (PDOException $e) {
-    echo "Query Failed: " . $e->getMessage();
-}
-?>
+<br/>
 
 <!--Logout-->
-
-<form action="scripts/logout.php" method="post"><input type="submit" value="Logout"/></form>
+<div class="row center-align">
+    <form action="scripts/logout.php" method="post"><input class="btn wave-effect black" type="submit" value="Logout"/>
+    </form>
+</div>
+<br/>
 
 <!-- This is the footer -->
 
