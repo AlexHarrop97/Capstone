@@ -1,0 +1,24 @@
+.wave-effect.waves-light.btn{
+    background-color: white;
+    color: black;
+}
+
+
+#register-card {
+    border: 3px solid #000000 !important;
+}
+#login-card {
+    border: 3px solid #000000 !important;
+}
+
+/*This is to prevent the color on the input fields from the default yellow to white*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input::-webkit-input-placeholder{
+    color: #000000 !important;
+}

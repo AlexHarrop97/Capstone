@@ -57,10 +57,31 @@ $stmt->execute();
 while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
     $ProjectName =$row["ProjectName"];
     $ProjectID = $row["Project_ID"];
-    ?>
-    <a href="project.php?ProjectID=<?php echo $ProjectID?>">
-    ID: <?php echo $ProjectID?> |  <?php echo $ProjectName?></a><br />
-    <?php
+    $ProjectAdmin =$row["Admin"];
+    $ProjectUser = $row["User_ID"];
+
+    //////////////////
+    //Admin check
+    if ($ProjectUser == $ProjectAdmin){
+        ?>
+        <a href="project.php?ProjectID=<?php echo $ProjectID?>">
+            ID: <?php echo $ProjectID?> |  <?php echo $ProjectName?></a><br />
+        <?php
+    }
+    else {
+        $stmt = $db->prepare('SELECT * FROM projects WHERE Admin=:Admin AND ProjectName=:ProjectName');
+        $stmt->bindParam(':Admin', $ProjectAdmin);
+        $stmt->bindParam(':ProjectName', $ProjectName);
+        $stmt->execute();
+        while ($reroute = $stmt ->fetch(PDO::FETCH_ASSOC)){
+            $ProjectName = $reroute["ProjectName"];
+            $ProjectID = $reroute["Project_ID"];
+            ?>
+            <a href="project.php?ProjectID=<?php echo $ProjectID?>">
+                ID: <?php echo $ProjectID?> |  <?php echo $ProjectName?></a><br />
+            <?php
+        }
+    }
 }
 ?>
 <br /><br />

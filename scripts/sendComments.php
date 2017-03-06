@@ -5,7 +5,7 @@ session_start();
 require_once('../dependencies/db.php');
 
 $dateAndTime = date("m/d/Y H:i:s");
-$tempProjectID = 0;
+$ProjectID = $_GET['ProjectID'];
 
 try {
 	
@@ -13,10 +13,10 @@ try {
 	$sendComment->bindParam(':uID', $_SESSION["User_ID"]);
 	$sendComment->bindParam(':mText', $_POST["msgBox"]);
 	$sendComment->bindParam(':mTime', $dateAndTime);
-	$sendComment->bindParam(':pID', $tempProjectID);
+	$sendComment->bindParam(':pID', $ProjectID);
 	$sendComment->execute();
 
-	header('Location: ../index.php');
+	header('Location: ../project.php?ProjectID='.$_GET['ProjectID']);
 
 }
 catch (PDOException $e) { 
