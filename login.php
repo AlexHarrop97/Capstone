@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 <html>
+<title>Streaming Information</title>
 <head>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -24,7 +26,7 @@
 </nav>
 
 <?php
-if (isset($_GET['loginSuccess']) && !empty($_GET['aloginSuccess'])) {
+if (isset($_GET['loginSuccess']) && !empty($_GET['loginSuccess'])) {
 
     echo " ";
 } else {
@@ -43,7 +45,7 @@ if (isset($_GET['loginSuccess']) && !empty($_GET['aloginSuccess'])) {
     <div class="col s12" id="error" style="display: none">
         <div class="card red accent-1" >
             <div class="card-content red-text darken-2 center" ">
-                <p><i class="small material-icons">info_outline</i> 
+                <p><i class="small material-icons">info_outline</i>
                     <?php
                     if (isset($_GET['loginSuccess']) && !empty($_GET['loginSuccess']) && $_GET['loginSuccess'] == 'false') {
 
@@ -65,7 +67,7 @@ if (isset($_GET['loginSuccess']) && !empty($_GET['aloginSuccess'])) {
             <div class="card-action">
                 <div class="row">
                     <div class="col s12">
-                        <form class="col s12" action="scripts/validateUser.php" method="post">
+                        <form class="col s12" action="scripts/getUser.php" method="post">
                             <div class="row">
 
                                 <div class="input-field col s12">
