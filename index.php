@@ -55,7 +55,7 @@ Confirm New Password: <input type="password" name="newPassConfirm" />
 
 try {
 
-	$getComments = $db->prepare('SELECT * FROM comments INNER JOIN users ON users.User_ID = comments.User_ID ORDER BY Message_Time DESC');
+	$getComments = $db->prepare('SELECT * FROM comments, users ON users.User_ID = comments.User_ID ORDER BY Message_Time DESC');
 	//$getComments->bindParam(':projectID', $_GET["Project_ID"]);
 	$getComments->execute();
 	$results = $getComments->fetchAll();
