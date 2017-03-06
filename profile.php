@@ -74,12 +74,12 @@ while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
         $stmt->bindParam(':ProjectName', $ProjectName);
         $stmt->execute();
         while ($reroute = $stmt ->fetch(PDO::FETCH_ASSOC)){
-            $ProjectName = $reroute["ProjectName"];
-            $ProjectID = $reroute["Project_ID"];
-            ?>
-            <a href="project.php?ProjectID=<?php echo $ProjectID?>">
-                ID: <?php echo $ProjectID?> |  <?php echo $ProjectName?></a><br />
-            <?php
+            if ($reroute["User_ID"] == $ProjectAdmin) {
+                ?>
+                <a href="project.php?ProjectID=<?php echo $reroute["Project_ID"];?>">
+                    ID: <?php echo $reroute["Project_ID"];?> |  <?php echo $reroute["ProjectName"]?></a><br />
+                <?php
+            }
         }
     }
 }
