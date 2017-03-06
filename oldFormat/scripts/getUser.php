@@ -7,7 +7,7 @@ require_once('../db.php');
 
 try {
 
-    $Email = $_POST["email"];
+    $Email = $_POST["userName"];
     $Password = $_POST["password"];
 
     // Select all using user and password textboxes on login.php
