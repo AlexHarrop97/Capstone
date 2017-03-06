@@ -2,6 +2,7 @@
 
 session_start();
 require_once('db.php');
+require_once('todo.css');
 
 
 try{
@@ -34,6 +35,9 @@ catch (PDOException $e) {
 <style type="text/css">
     ul {
         list-style-type: none;
+    }
+    .done {
+        text-decoration: line-through;
     }
 </style>
 
