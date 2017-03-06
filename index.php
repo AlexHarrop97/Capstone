@@ -62,7 +62,8 @@ try {
 
 	foreach ($results as $line) {
 
-		$template = "<p><strong>" . $line["User_FName"] . " " . $line["User_LName"] . "</strong> (" . $line["Message_Time"] . "):" . $line["Message_Text"] . ".</p><br/>";
+        //print_r($line);
+		$template = "<p><strong>" . $line["FirstName"] . " " . $line["LastName"] . "</strong> (" . $line["Message_Time"] . "):" . $line["Message_Text"] . ".</p><br/>";
 
 		echo $template;
 	}
