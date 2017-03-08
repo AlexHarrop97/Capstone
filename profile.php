@@ -1,9 +1,13 @@
 <?php
 session_start();
 require_once('dependencies/db.php');
+if($_SESSION['Email'] == null){
+        header('Location: login.php');
+    }
 try {
     $Email = $_SESSION['Email'];
     $UserID = $_SESSION['UserID'];
+    
     //echo $Email;
     //Select all using user and password textboxes on login.php
     $stmt = $db->prepare('SELECT * FROM users WHERE Email=:email');
@@ -54,7 +58,30 @@ try {
 <h4>Welcome, <?php echo $UserFName . " " . $UserLName ?> | ID: <?php echo $UserID ?></h4>
 
 <h3>Info</h3>
-<li>TBD...</li>
+<!-- CHANGE PASSWORD -->
+<?php
+if (isset($_SESSION["User_ID"]) != "") {
+    echo "Change your password here: ";
+
+} else {
+    //redirect user back to login.php if the session does not exist
+    //header('Location: login.php');
+}
+?>
+<div class="row">
+    <div class="col s4">
+        <div class="card green accent-2">
+            <div class="card-content">
+                <form action="scripts/changePass.php" method="post">
+                    <input placeholder="New Password" type="password" name="newPass"/><br/>
+                    <input placeholder="Confirm New Password" type="password" name="newPassConfirm"/><br/>
+                    <input type="submit" class="btn wave-effect black" value="Change Password" name="submitPassChange"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
 
 
 <h3>Projects</h3>
