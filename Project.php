@@ -37,12 +37,12 @@ try {
     $Email = $_SESSION['Email'];
     $UserID = $_SESSION['UserID'];
     $ProjectID = $_GET['ProjectID'];
-    //echo $Email.$UserID.$ProjectID;
     $stmt = $db->prepare('SELECT * FROM Projects WHERE Project_ID=:Project_ID');
     $stmt->bindParam(':Project_ID', $_GET['ProjectID']);
     $stmt->execute();
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $ProjectName = $row["ProjectName"];
+        $ProjectAdminID = $row["Admin"];
     }
 } catch (PDOException $e) {
     die('Project Failed! ');
@@ -50,12 +50,30 @@ try {
 ?>
 
 
+<<<<<<< HEAD
+<body>
+<h1>PROJECT PAGE</h1>
+<a href="profile.php">Back to profile...</a>
+<h2>Project Title: <?php echo $ProjectName?> | ID: <?php echo $ProjectID?></h2>
+<br /><br />
+
+<!--Adding user to project-->
+<h2>Invite User</h2>
+<form action="scripts/inviteUser.php?ProjectID=<?php echo $ProjectID?>&Admin=<?php echo $ProjectAdminID?>" method="post">
+    <input type="text" name="email" placeholder="Enter user's email" class="input" autocomplete="off">
+    <input type="submit" value="Add" class="submit">
+</form>
+
+
+<h2>TODOs</h2><br />
+=======
 <!--Project-->
 <h2>Project Title: <?php echo $ProjectName ?> | ID: <?php echo $ProjectID ?></h2>
 <br/><br/>
 
 
 <h4>TODOs</h4><br/>
+>>>>>>> 3d75d505543d7220988275bff470cdb22e25259a
 <?php
 $stmt = $db->prepare('SELECT * FROM todo WHERE Project_ID=:Project_ID');
 $stmt->bindParam(':Project_ID', $ProjectID);
