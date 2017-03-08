@@ -59,7 +59,7 @@ try {
 
 <!--Adding user to project-->
 <h2>Invite User</h2>
-<form action="scripts/inviteUser.php?ProjectID=<?php echo $ProjectID?>&Admin=<?php echo $ProjectAdminID?>" method="post">
+<form action="scripts/inviteUser.php?ProjectID=<?php echo $ProjectID?>&Admin=<?php echo $ProjectAdminID?>&ProjectName=<?php echo $ProjectName ?>" method="post">
     <input type="text" name="email" placeholder="Enter user's email" class="input" autocomplete="off">
     <input type="submit" value="Add" class="submit">
 </form>

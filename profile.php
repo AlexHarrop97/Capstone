@@ -59,16 +59,43 @@ try {
 
 <h3>Projects</h3>
 <?php
-$stmt = $db->prepare('SELECT * FROM projects WHERE User_ID=:User_ID');
+//ADMIN PROJECTS
+$stmt = $db->prepare('SELECT * FROM projects WHERE Admin=:User_ID');
 $stmt->bindParam(':User_ID', $_SESSION['UserID']);
 $stmt->execute();
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $ProjectName = $row["ProjectName"];
+while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
+    $ProjectName =$row["ProjectName"];
     $ProjectID = $row["Project_ID"];
-    ?>
-    <a href="project.php?ProjectID=<?php echo $ProjectID ?>">
-        ID: <?php echo $ProjectID ?> | <?php echo $ProjectName ?></a><br/>
+    $ProjectAdmin =$row["Admin"];
+    $ProjectUser = $row["User_ID"];
+    if ($ProjectUser == $ProjectAdmin){
+         ?>
+    ADMIN - <a href="project.php?ProjectID=<?php echo $ProjectID?>">
+    ID: <?php echo $ProjectID?> |  <?php echo $ProjectName?></a><br />
     <?php
+    }
+}
+//INVITED PROJECTS
+echo "INVITED<br />";
+//Get invited projects pointers
+$stmt = $db->prepare('SELECT * FROM projects WHERE User_ID=:User_ID AND NOT User_ID=Admin');
+$stmt->bindParam(':User_ID', $_SESSION['UserID']);
+$stmt->execute();
+while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
+    $ProjectName =$row["ProjectName"];
+    $ProjectAdmin =$row["Admin"];
+    $st = $db->prepare('SELECT * FROM projects WHERE Admin=:Admin AND  ProjectName=:ProjectName LIMIT 1');
+    $st->bindParam(':Admin',$ProjectAdmin);
+    $st->bindParam(':ProjectName',$ProjectName);
+    $st->execute();
+    while ($route = $st->fetch(PDO::FETCH_ASSOC)){
+        if ($route["User_ID"] == $route["Admin"]){
+             ?>
+    Invited - <a href="project.php?ProjectID=<?php echo $route["Project_ID"]?>">
+    ID: <?php echo $route["Project_ID"]?> |  <?php echo $route["ProjectName"]?></a><br />
+    <?php
+        }
+    }
 }
 ?>
 <br/><br/>
