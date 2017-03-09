@@ -1,0 +1,17 @@
+Some thoughts on where we stand functionally. -nate
+    
+    Change password doens't work.
+    -also should probably have a thrid field to validate your current password
+    
+    Change user Email?
+    
+    Implement titles in the head of pages
+    
+    Project
+    -pages should show current users attached to a project?
+    
+    todo
+    -check/uncheck system
+    
+    comments
+    -Some reason when submitting, user_ID is not resitering, once fixed should work
