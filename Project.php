@@ -1,3 +1,11 @@
+<?php
+session_start();
+        $Email = $_SESSION['Email'];
+        $UserID = $_SESSION['UserID'];
+require('scripts/command.php');
+
+isLoggedIn($Email, $UserID);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,8 +39,6 @@
 
 
 <?php
-session_start();
-require_once('/dependencies/db.php');
 try {
     $Email = $_SESSION['Email'];
     $UserID = $_SESSION['UserID'];
@@ -49,8 +55,6 @@ try {
 }
 ?>
 
-
-<<<<<<< HEAD
 <body>
 <h1>PROJECT PAGE</h1>
 <a href="profile.php">Back to profile...</a>
@@ -65,15 +69,7 @@ try {
 </form>
 
 
-<h2>TODOs</h2><br />
-=======
-<!--Project-->
-<h2>Project Title: <?php echo $ProjectName ?> | ID: <?php echo $ProjectID ?></h2>
-<br/><br/>
-
-
 <h4>TODOs</h4><br/>
->>>>>>> 3d75d505543d7220988275bff470cdb22e25259a
 <?php
 $stmt = $db->prepare('SELECT * FROM todo WHERE Project_ID=:Project_ID');
 $stmt->bindParam(':Project_ID', $ProjectID);

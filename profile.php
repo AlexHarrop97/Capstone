@@ -1,12 +1,12 @@
 <?php
 session_start();
-require_once('dependencies/db.php');
-if($_SESSION['Email'] == null){
-        header('Location: login.php');
-    }
+        $Email = $_SESSION['Email'];
+        $UserID = $_SESSION['UserID'];
+require('scripts/command.php');
+
+isLoggedIn($Email, $UserID);
+
 try {
-    $Email = $_SESSION['Email'];
-    $UserID = $_SESSION['UserID'];
     
     //echo $Email;
     //Select all using user and password textboxes on login.php
@@ -26,14 +26,18 @@ try {
 <!DOCTYPE html>
 <html>
 <head>
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
-    <!--Link to Main css document-->
-    <link rel="stylesheet" type="text/css" href="css/main.css"
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- FOR USE OF MATERIALIZE -->
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+        <!--Link to Main css document-->
+        <link rel="stylesheet" type="text/css" href="css/main.css"
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <Title><?php echo $UserFName?>'s Profile - LinQ</Title>
+    
 </head>
 <style type="text/css">
     ul {
