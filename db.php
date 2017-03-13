@@ -2,9 +2,9 @@
 	// DO NOT MODIFY(this is the database connection)
 
 
-	$user="group3";
+	$user="root";
 	$pass="Group3";
-	$dsn="mysql:host=sql.neit.edu;port=5500;dbname=se265win17group3;";
+	$dsn="mysql:host=localhost;dbname=se265win17group3;";
 
 	try {
 

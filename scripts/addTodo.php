@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../db.php');
+require_once('command.php');
 
 echo $_GET['ProjectID'];
 try {

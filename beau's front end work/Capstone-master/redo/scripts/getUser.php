@@ -3,7 +3,7 @@
 // This file completes the login, users are sent here from the login page
 // login.php is the default page of the website.
 
-require_once('../db.php');
+require_once('command.php');
 
 try {
 
@@ -34,7 +34,7 @@ try {
 
         else {
 
-            header('Location: ../login.php?loginSuccess=0');
+            header('Location: ../index.php?loginSuccess=0');
             echo "<p>Password doesn't match</p>";
         }
     }

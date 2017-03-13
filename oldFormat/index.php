@@ -13,7 +13,7 @@ if ( isset($_SESSION["User_ID"]) != "" ) {
 else {
 
 	//redirect user back to login.php if the session does not exist
-	header('Location: login.php');
+	header('Location: index.php');
 }
 
 ?>
@@ -29,7 +29,7 @@ if ( isset($_SESSION["User_ID"]) != "" ) {
 else {
 
 	//redirect user back to login.php if the session does not exist
-	header('Location: login.php');
+	header('Location: index.php');
 }
 ?>
 <div class="UserInfo">

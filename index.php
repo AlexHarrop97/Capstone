@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<title>Streaming Information</title>
 <head>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -18,62 +19,70 @@
     <div class="nav-wrapper black">
         <a href="index.php" class="brand-logo left">Project LinQ</a>
         <ul id="nav-mobile" class="right">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="profile.php">Profile</a></li>
         </ul>
     </div>
 </nav>
 
 
-<?php
-require_once('dependencies/db.php');
-session_start();
-// check if the session exists(it should have been created in validateUser.php)
-// if it exists, send the user back to index and display the logged in message
-// if not, send the user back to login.php with a message reading "the account does not exist"
-if (isset($_SESSION["User_ID"]) != "") {
-    echo "You are currently logged in as <strong>" . $_SESSION["User_FName"] . " " . $_SESSION["User_LName"] . "</strong>";
-    echo "<br/>";
-    echo "You have a user id of " . $_SESSION["User_ID"] . " (at some point this might be important to you)";
 
-} else {
-    //redirect user back to login.php if the session does not exist
-    header('Location: login.php');
+
+<!-- LOGIN FORM -->
+<?php
+if (isset($_GET["loginSuccess"]) == 1) {
+
+    ?>
+    <div class="row" id="error">
+        <div class="col s12">
+            <div class="card red accent-2">
+                <div class="card-content center">
+                    <p>Error: Please login in using valid credentials</p>
+                </div>
+            </div>
+        </div>
+    </div><?php
+
 }
+else{
+    echo " ";
+}
+
 ?>
 
-
-<!-- CHANGE PASSWORD -->
-<?php
-if (isset($_SESSION["User_ID"]) != "") {
-    echo "Change your password here: ";
-
-} else {
-    //redirect user back to login.php if the session does not exist
-    header('Location: login.php');
-}
-?>
 <div class="row">
     <div class="col s4">
-        <div class="card green accent-2">
-            <div class="card-content">
-                <form action="scripts/changePass.php" method="post">
-                    <input placeholder="New Password" type="password" name="newPass"/><br/>
-                    <input placeholder="Confirm New Password" type="password" name="newPassConfirm"/><br/>
-                    <input type="submit" class="btn wave-effect black" value="Change Password" name="submitPassChange"/>
-                </form>
+        <div class="card green accent-2" id="login-card">
+            <div class="card-action">
+                <div class="row">
+                    <div class="col s12">
+                        <form class="col s12" action="scripts/getUser.php" method="post">
+                            <div class="row">
+
+                                <div class="input-field col s12">
+                                    <input placeholder="Email" type="text" name="email"/>
+                                </div>
+
+                                <br/>
+
+                                <div class="input-field col s12">
+                                    <input placeholder="Password" type="password" name="password"/>
+                                </div>
+                                <br/><br/>
+                                <input id="submit" class="wave-effect black btn" type="submit"/><br/><br/>
+                                <span><a href="register.php" class="wave-effect black btn">Register</a></span><br/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<br/>
 
-<!--Logout-->
-<div class="row center-align">
-    <form action="scripts/logout.php" method="post"><input class="btn wave-effect black" type="submit" value="Logout"/>
-    </form>
+    <div class="col s7 right-align">
+        <div class="card-image">
+            <img src="images/logo-v3.png" style="width: 600px; height: 400px;border: solid #000000 3px;">
+        </div>
+    </div>
 </div>
-<br/>
 
 <!-- This is the footer -->
 
@@ -97,6 +106,7 @@ if (isset($_SESSION["User_ID"]) != "") {
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
+
 
 </body>
 </html>

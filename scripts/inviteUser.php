@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../db.php');
+require_once('command.php');
     $projectID = $_GET["ProjectID"];
     $adminID = $_GET["Admin"];
     $userEmail = $_POST["email"];

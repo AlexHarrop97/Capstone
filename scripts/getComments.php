@@ -1,7 +1,7 @@
 
 <?php
 
-require_once('../dependencies/db.php');
+require_once('command.php');
 
 try { 
 

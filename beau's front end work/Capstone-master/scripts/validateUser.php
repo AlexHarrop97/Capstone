@@ -1,7 +1,7 @@
 <?php
 // This file completes the login, users are sent here from the login page
 // login.php is the default page of the website.
-require_once('../dependencies/db.php');
+require_once('command.php');
 try {
 	// Select all using user and password textboxes on login.php
 	$stmt = $db->prepare("SELECT * FROM users WHERE (Email = :email)");
@@ -14,7 +14,7 @@ try {
 		// if the user does not exists(if the email in the db is null)
 		// send the user back to login.php
 		if (!password_verify($_POST["password"], $user["P4WD"])) {
-			header('Location: ../login.php?loginSuccess=false');
+			header('Location: ../index.php?loginSuccess=false');
 		}
 		else {
 			// start the session, set the session variable for User

@@ -31,6 +31,7 @@ try {
     <link rel="stylesheet" type="text/css" href="css/main.css"
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Profile - LinQ - <?php echo $UserFName." ".$UserLName?></title>
 </head>
 <style type="text/css">
     ul {
@@ -50,7 +51,7 @@ try {
     </div>
 </nav>
 
-<h4>Welcome, <?php echo $UserFName . " " . $UserLName ?> | ID: <?php echo $UserID ?></h4>
+<h4>Welcome, <?php echo $UserFName . " " . $UserLName ?></h4>
 
 
 <!--projects-->
@@ -58,9 +59,7 @@ try {
 
 <div class="row">
     <div class="col s6">
-        <h4>Current Projects</h4>
-        <div class="card green accent-2">
-            <div class="card-content">
+        <h4>Current Projects</h4>       
                 <?php
                 //ADMIN PROJECTS
                 $stmt = $db->prepare('SELECT * FROM projects WHERE Admin=:User_ID');
@@ -73,13 +72,39 @@ try {
                     $ProjectUser = $row["User_ID"];
                     if ($ProjectUser == $ProjectAdmin) {
                         ?>
-                        ADMIN - <a href="project.php?ProjectID=<?php echo $ProjectID ?>">
-                            ID: <?php echo $ProjectID ?> | <?php echo $ProjectName ?></a><br/>
+                        <div class="row">
+                            <a href="project.php?ProjectID=<?php echo $ProjectID ?>">
+                            <div class="card green accent-2 hoverable">
+                              <div class="card-content black-text">
+                                <span class="card-title"><?php echo $ProjectName?></span>
+                                <?php
+                                $st = $db->prepare('SELECT User_ID FROM projects WHERE Admin=:Admin AND ProjectName=:ProjectName');
+                                $st->bindParam(':Admin', $ProjectAdmin);
+                                $st->bindParam(':ProjectName', $ProjectName);
+                                $st->execute();
+                                echo $st->rowCount()." connected accounts<br /> | ";
+                                $users = $st->fetchAll();
+                                foreach ($users as $u) {
+                                    $s = $db->prepare('SELECT * FROM users WHERE User_ID=:User_ID');
+                                    $s->bindParam(':User_ID', $u["User_ID"]);
+                                    $s->execute();
+                                    $get = $s->fetchAll();
+                                    foreach ($get as $name){
+                                        echo $name["FirstName"]." ".$name["LastName"]." | ";
+                                    }
+                                }
+                                ?>
+                              </div>
+                              <div class="card-action red-text right-align">
+                                Owner
+                              </div>
+                            </div>
+                            </a>
+                        </div>
                         <?php
                     }
                 }
                 //INVITED PROJECTS
-                echo "INVITED<br />";
                 //Get invited projects pointers
                 $stmt = $db->prepare('SELECT * FROM projects WHERE User_ID=:User_ID AND NOT User_ID=Admin');
                 $stmt->bindParam(':User_ID', $_SESSION['UserID']);
@@ -92,18 +117,44 @@ try {
                     $st->bindParam(':ProjectName', $ProjectName);
                     $st->execute();
                     while ($route = $st->fetch(PDO::FETCH_ASSOC)) {
-                        if ($route["User_ID"] == $route["Admin"]) {
+                        if ($route["User_ID"] == isset($route["Admin"])) {
                             ?>
-                            Invited - <a href="project.php?ProjectID=<?php echo $route["Project_ID"] ?>">
-                                ID: <?php echo $route["Project_ID"] ?> | <?php echo $route["ProjectName"] ?></a><br/>
+                            <div class="row">
+                            <a href="project.php?ProjectID=<?php echo $route["Project_ID"] ?>">
+                            <div class="card green accent-2">
+                              <div class="card-content black-text">
+                                <span class="card-title"><?php echo $route["ProjectName"]?></span>
+                                <?php
+                                $stm = $db->prepare('SELECT User_ID FROM projects WHERE Admin=:Admin AND ProjectName=:ProjectName');
+                                $stm->bindParam(':Admin', $route["Admin"]);
+                                $stm->bindParam(':ProjectName', $route["ProjectName"]);
+                                $stm->execute();
+                                echo $stm->rowCount()." connected accounts<br /> | ";
+                                $users = $stm->fetchAll();
+                                foreach ($users as $u) {
+                                    $s = $db->prepare('SELECT * FROM users WHERE User_ID=:User_ID');
+                                    $s->bindParam(':User_ID', $u["User_ID"]);
+                                    $s->execute();
+                                    $get = $s->fetchAll();
+                                    foreach ($get as $name){
+                                        echo $name["FirstName"]." ".$name["LastName"]." | ";
+                                    }
+                                }
+                                ?>
+                              </div>
+                              <div class="card-action red-text right-align">
+                                Invited
+                              </div>
+                            </div>
+                            </a>
+                        </div>
                             <?php
-                        }
+                        } 
                     }
                 }
                 ?>
 
-            </div>
-        </div>
+            
     </div>
 
     <div class="col s6">

@@ -36,7 +36,7 @@ if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 else {
 
     //redirect user back to login.php if the session does not exist
-    header('Location: login.php');
+    header('Location: index.php');
 }
 ?>
 

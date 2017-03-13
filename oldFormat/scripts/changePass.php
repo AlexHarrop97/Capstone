@@ -2,7 +2,7 @@
 // this is where the user is created
 // the information is obtained from the register_user.php file using post method
 
-require_once('../dependencies/db.php');
+require_once('command.php');
 
 try {
 	
@@ -50,7 +50,7 @@ try {
 		//redirect user back to homepage
 		session_unset();
 		session_destroy();
-		header('Location: ../login.php?passChange=true');
+		header('Location: ../index.php?passChange=true');
 	}
 }
 catch (PDOException $e) {

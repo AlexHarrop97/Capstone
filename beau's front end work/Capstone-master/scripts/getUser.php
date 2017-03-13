@@ -1,7 +1,7 @@
 <?php
 // This file completes the login, users are sent here from the login page
 // login.php is the default page of the website.
-require_once('../dependencies/db.php');
+require_once('command.php');
 try {
     $Email = $_POST["userName"];
     $Password = $_POST["password"];
@@ -21,7 +21,7 @@ try {
             header('Location: ../profile.php');
         }
         else {
-            header('Location: ../login.php?loginSuccess=0');
+            header('Location: ../index.php?loginSuccess=0');
             echo "<p>Password doesn't match</p>";
         }
     }

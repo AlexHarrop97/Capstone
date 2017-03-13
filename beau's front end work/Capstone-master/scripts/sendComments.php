@@ -1,6 +1,6 @@
 <?php
 
-require_once('../dependencies/db.php');
+require_once('command.php');
 
 $dateAndTime = date("m/d/Y H:i:s");
 $tempProjectID = 0;
