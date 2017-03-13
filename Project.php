@@ -1,21 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
-@Octanitrogen
-Sign out
-Watch 0
-Star 1
-Fork 0 AlexHarrop97/Capstone
-Code  Issues 0  Pull requests 0  Projects 0  Wiki  Pulse  Graphs
-Branch: master Find file Copy pathCapstone/Project.php
-cbb94ec  10 minutes ago
-@bbrissette96 bbrissette96 final css
-3 contributors @Octanitrogen @Bmacs @bbrissette96
-RawBlameHistory
-198 lines (170 sloc)  6.75 KB
 <?php
 session_start();
 $Email = $_SESSION['Email'];
@@ -135,7 +117,7 @@ try {
                 <!-- GRAB COMMENTS -->
                 <?php
                 try {
-                    $getComments = $db->prepare('SELECT * FROM comments INNER JOIN users ON users.User_ID = comments.User_ID WHERE Project_ID = :projectID ORDER BY Message_Time DESC');
+                    $getComments = $db->prepare('SELECT * FROM comments INNER JOIN users ON users.User_ID = comments.User_ID WHERE Project_ID = :projectID ORDER BY Message_Time ASC');
                     $getComments->bindParam(':projectID', $ProjectID);
                     $getComments->execute();
                     $results = $getComments->fetchAll();
