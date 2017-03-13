@@ -8,6 +8,7 @@ try {
     $Description = $_POST["add"];
     $UserID = $_GET['UserID'];
     $ProjectID = $_GET['ProjectID'];
+    $Status = $_GET['Status'];
 
     $stmt = $db->prepare("INSERT INTO todo (User_ID, Project_ID, Description, Status) VALUES (:user_id, :project_id, :description, :status)");
     $stmt->bindParam(':description', $Description);
