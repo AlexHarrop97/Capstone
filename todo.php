@@ -40,6 +40,10 @@ foreach ($items as $item) {
 		list-style-type: none;
 	}
 
+	.item .done {
+		text-decoration: line-through;
+	}
+
 </style>
 
 <body>
