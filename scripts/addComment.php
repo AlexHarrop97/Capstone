@@ -11,7 +11,8 @@ try {
 
     
 
-    $stmt = $db->prepare("INSERT INTO comments (User_ID, Message_Text, Message_Time) VALUES (:user_id, :messagetext, :messagetime)");
+    $stmt = $db->prepare("INSERT INTO comments (User_ID, Message_Text, Message_Time) ".
+                              "VALUES (:user_id, :messagetext, :messagetime)");
     $stmt->bindParam(':messagetext', $Message_Text);
     $stmt->bindParam(':user_id', $UserID);
     $stmt->bindParam(':messagetime,' $Message_Time);

@@ -63,7 +63,8 @@ try {
 
 <!--Adding user to project-->
 <h2>Invite User</h2>
-<form action="scripts/inviteUser.php?ProjectID=<?php echo $ProjectID?>&Admin=<?php echo $ProjectAdminID?>&ProjectName=<?php echo $ProjectName ?>" method="post">
+<form action="scripts/inviteUser.php?ProjectID=<?php echo $ProjectID?>&Admin=<?php echo $ProjectAdminID?>
+                    &ProjectName=<?php echo $ProjectName ?>" method="post">
     <input type="text" name="email" placeholder="Enter user's email" class="input" autocomplete="off">
     <input type="submit" value="Add" class="submit">
 </form>
@@ -105,7 +106,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     <div class="col s8">
         <div class="card green accent-2">
             <div class="card-content">
-                <form action="scripts/sendComments.php?ProjectID=<?php echo $ProjectID; ?>" method="post">
+                <form action="scripts/sendComments.php?ProjectID=<?php echo $ProjectID; ?>&User_ID=<?php echo $UserID;?>" method="post">
                     <input placeholder="Add Comment" class="input" type="text" name="msgBox" value="">
                     <input class="btn wave-effect black" type="submit" value="Send" name="submitMsg"/>
                 </form>

@@ -9,8 +9,9 @@ $ProjectID = $_GET['ProjectID'];
 
 try {
 	
-	$sendComment = $db->prepare('INSERT INTO comments (User_ID, Message_Text, Message_Time, Project_ID) VALUES (:uID, :mText, :mTime, :pID)');
-	$sendComment->bindParam(':uID', $_SESSION["User_ID"]);
+	$sendComment = $db->prepare('INSERT INTO comments (User_ID, Message_Text, Message_Time, Project_ID) '.
+                                'VALUES (:uID, :mText, :mTime, :pID)');
+	$sendComment->bindParam(':uID', $_GET["User_ID"]);
 	$sendComment->bindParam(':mText', $_POST["msgBox"]);
 	$sendComment->bindParam(':mTime', $dateAndTime);
 	$sendComment->bindParam(':pID', $ProjectID);
