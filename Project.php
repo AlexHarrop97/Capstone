@@ -1,10 +1,41 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+@Octanitrogen
+Sign out
+Watch 0
+Star 1
+Fork 0 AlexHarrop97/Capstone
+Code  Issues 0  Pull requests 0  Projects 0  Wiki  Pulse  Graphs
+Branch: master Find file Copy pathCapstone/Project.php
+cbb94ec  10 minutes ago
+@bbrissette96 bbrissette96 final css
+3 contributors @Octanitrogen @Bmacs @bbrissette96
+RawBlameHistory
+198 lines (170 sloc)  6.75 KB
 <?php
 session_start();
-        $Email = $_SESSION['Email'];
-        $UserID = $_SESSION['UserID'];
+$Email = $_SESSION['Email'];
+$UserID = $_SESSION['UserID'];
 require('scripts/command.php');
-
 isLoggedIn($Email, $UserID);
+try {
+    $Email = $_SESSION['Email'];
+    $UserID = $_SESSION['UserID'];
+    $ProjectID = $_GET['ProjectID'];
+    //echo $Email.$UserID.$ProjectID;
+    $stmt = $db->prepare('SELECT * FROM Projects WHERE Project_ID=:Project_ID');
+    $stmt->bindParam(':Project_ID', $_GET['ProjectID']);
+    $stmt->execute();
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $ProjectName = $row["ProjectName"];
+    }
+} catch (PDOException $e) {
+    die('Project Failed! ');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,13 +55,12 @@ isLoggedIn($Email, $UserID);
     }
 </style>
 
-
+<body>
 <!-- Navbar -->
 <nav>
     <div class="nav-wrapper black">
-        <a href="index.php" class="brand-logo left">Project LinQ</a>
+        <a href="profile.php" class="brand-logo left">Project LinQ</a>
         <ul id="nav-mobile" class="right">
-            <li><a href="index.php">Home</a></li>
             <li><a href="profile.php">Profile</a></li>
             <li><a href="scripts/logout.php">Logout</a></li>
         </ul>
@@ -55,42 +85,37 @@ try {
 }
 ?>
 
-<body>
-<h1>PROJECT PAGE</h1>
-<a href="profile.php">Back to profile...</a>
-<h2>Project Title: <?php echo $ProjectName?> | ID: <?php echo $ProjectID?></h2>
-<br /><br />
 
-<!--Adding user to project-->
-<h2>Invite User</h2>
-<form action="scripts/inviteUser.php?ProjectID=<?php echo $ProjectID?>&Admin=<?php echo $ProjectAdminID?>
-                    &ProjectName=<?php echo $ProjectName ?>" method="post">
-    <input type="text" name="email" placeholder="Enter user's email" class="input" autocomplete="off">
-    <input type="submit" value="Add" class="submit">
-</form>
+<!--Project-->
+<h2>Project Title: <?php echo $ProjectName ?> | ID: <?php echo $ProjectID ?></h2>
+<br/><br/>
 
 
-<h4>TODOs</h4><br/>
-<?php
-$stmt = $db->prepare('SELECT * FROM todo WHERE Project_ID=:Project_ID');
-$stmt->bindParam(':Project_ID', $ProjectID);
-$stmt->execute();
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $Todo = $row["Todo_ID"];
-    $Description = $row["Description"];
-    ?>
-    ID: <?php echo $Todo ?> | Description: <?php echo $Description ?>
-    <form action="scripts/deleteTodo.php?Todo_ID=<?php echo $Todo; ?>&ProjectID=<?php echo $ProjectID;?>"  method="post">
-        <input type="submit" value="Delete" class="submit">
-    </form>
-    <br/>
-    <?php
-}
-?>
 <div class="row">
-    <div class="col s8">
+    <div class="col s6">
+        <h4>TODOs</h4>
         <div class="card green accent-2">
             <div class="card-content">
+                <?php
+                $stmt = $db->prepare('SELECT * FROM todo WHERE Project_ID=:Project_ID');
+                $stmt->bindParam(':Project_ID', $ProjectID);
+                $stmt->execute();
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $Todo = $row["Todo_ID"];
+                    $Description = $row["Description"];
+                    ?>
+
+                    <div class="row">
+                        <input class="btn wave-effect black" type="button" name="delete" Value="Delete"
+                               action="scripts/deleteTodo.php?Todo_ID=<?php echo $Todo; ?>&ProjectID=<?php echo $ProjectID;?>">
+                        ID: <?php echo $Todo ?> | Description: <?php echo $Description ?>
+
+                        <br/>
+                    </div>
+                    <?php
+                }
+                ?>
+
                 <form action="scripts/addTodo.php?UserID=<?php echo $UserID ?>&ProjectID=<?php echo $ProjectID ?>"
                       method="post">
                     <input type="text" name="add" placeholder="Add a new task" class="input" autocomplete="off">
@@ -99,42 +124,63 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             </div>
         </div>
     </div>
+
+
+    <!-- COMMENT -->
+
+    <div class="col s6">
+        <h4>Comments</h4>
+        <div class="card green accent-2">
+            <div class="card-content">
+                <!-- GRAB COMMENTS -->
+                <?php
+                try {
+                    $getComments = $db->prepare('SELECT * FROM comments INNER JOIN users ON users.User_ID = comments.User_ID WHERE Project_ID = :projectID ORDER BY Message_Time DESC');
+                    $getComments->bindParam(':projectID', $ProjectID);
+                    $getComments->execute();
+                    $results = $getComments->fetchAll();
+                    foreach ($results as $line) {
+                        //print_r($line);
+                        $template = "<p><strong>" . $line["FirstName"] . " " . $line["LastName"] . "</strong> (" . $line["Message_Time"] . "):" . $line["Message_Text"] . ".</p><br/>";
+                        echo $template;
+                    }
+                } catch (PDOException $e) {
+                    echo "Query Failed: " . $e->getMessage();
+                }
+                ?>
+
+                <!-- SEND COMMENT -->
+                <form action="scripts/sendComments.php?ProjectID=<?php echo $ProjectID; ?>&User_ID=<?php echo $UserID ?>"
+                      method="post">
+                    <input placeholder="Add Comment" class="input" type="text" name="msgBox" value="">
+                    <input class="btn wave-effect black" type="submit" value="Send" name="submitMsg"/>
+                </form>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <br/><br/>
-<h4>Comments</h4><br/>
 
-<!-- SEND COMMENT -->
+
+<!--Adding user to project-->
 <div class="row">
     <div class="col s8">
+        <h4>Invite User</h4>
         <div class="card green accent-2">
             <div class="card-content">
-                <form action="scripts/sendComments.php?ProjectID=<?php echo $ProjectID; ?>&User_ID=<?php echo $UserID;?>" method="post">
-                    <input placeholder="Add Comment" class="input" type="text" name="msgBox" value="">
-                    <input class="btn wave-effect black" type="submit" value="Send" name="submitMsg"/>
+                <form action="scripts/inviteUser.php?ProjectID=<?php echo $ProjectID ?>&Admin=<?php echo $ProjectAdminID ?>
+                    &ProjectName=<?php echo $ProjectName ?>" method="post">
+                    <input type="text" name="email" placeholder="Enter user's email" class="input" autocomplete="off">
+                    <input class="btn wave-effect black" type="submit" value="Add" class="submit">
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- GRAB COMMENTS -->
-<?php
-try {
-    $getComments = $db->prepare('SELECT * FROM comments INNER JOIN users ON users.User_ID = comments.User_ID WHERE Project_ID = :projectID ORDER BY Message_Time DESC');
-    $getComments->bindParam(':projectID', $ProjectID);
-    $getComments->execute();
-    $results = $getComments->fetchAll();
-    foreach ($results as $line) {
-        //print_r($line);
-        $template = "<p><strong>" . $line["FirstName"] . " " . $line["LastName"] . "</strong> (" . $line["Message_Time"] . "):" . $line["Message_Text"] . ".</p><br/>";
-        echo $template;
-    }
-} catch (PDOException $e) {
-    echo "Query Failed: " . $e->getMessage();
-}
-?>
 
 <!--Profile Link-->
 <div class="row center-align">
@@ -167,3 +213,5 @@ try {
 </html>
 
 
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help

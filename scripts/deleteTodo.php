@@ -20,5 +20,8 @@ try {
 catch (PDOException $e) {
 
     header('Location: ../project.php?ProjectID='.$ProjectID);
-    
+
 }
+
+
+

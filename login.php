@@ -19,47 +19,34 @@
     <div class="nav-wrapper black">
         <a href="index.php" class="brand-logo left">Project LinQ</a>
         <ul id="nav-mobile" class="right">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="profile.php">Profile</a></li>
         </ul>
     </div>
 </nav>
 
-<?php
-if (isset($_GET['loginSuccess']) && !empty($_GET['loginSuccess'])) {
 
-    echo " ";
-} else {
-
-    echo "Please log in using existing user credentials. ";
-}
-
-
-?>
 
 
 <!-- LOGIN FORM -->
+<?php
+if (isset($_GET["loginSuccess"]) == 1) {
 
-
-<div class="row">
-    <div class="col s12" id="error" style="display: none">
-        <div class="card red accent-1" >
-            <div class="card-content red-text darken-2 center" ">
-                <p><i class="small material-icons">info_outline</i>
-                    <?php
-                    if (isset($_GET['loginSuccess']) && !empty($_GET['loginSuccess']) && $_GET['loginSuccess'] == 'false') {
-
-                        echo "You have entered an invalid email and password combination.";
-
-                    }
-                    ?></p>
+    ?>
+    <div class="row" id="error">
+        <div class="col s12">
+            <div class="card red accent-2">
+                <div class="card-content center">
+                    <p>Error: Please login in using valid credentials</p>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div><?php
 
+}
+else{
+    echo " ";
+}
 
-
+?>
 
 <div class="row">
     <div class="col s4">
@@ -89,10 +76,10 @@ if (isset($_GET['loginSuccess']) && !empty($_GET['loginSuccess'])) {
             </div>
         </div>
     </div>
-    
+
     <div class="col s7 right-align">
         <div class="card-image">
-            <img src="images/logo.png" style="width: 600px; height: 400px;">
+            <img src="images/logo-v3.png" style="width: 600px; height: 400px;border: solid #000000 3px;">
         </div>
     </div>
 </div>
@@ -117,17 +104,9 @@ if (isset($_GET['loginSuccess']) && !empty($_GET['loginSuccess'])) {
 </footer>
 
 
-
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 
-<!-- should toggle error message on when submit is pressed -->
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("#submit").on("click", function () {
-            $("#error").toggle();
-        });
-</script>
 
 </body>
 </html>
