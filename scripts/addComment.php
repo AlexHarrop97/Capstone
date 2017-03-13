@@ -15,7 +15,7 @@ try {
                               "VALUES (:user_id, :messagetext, :messagetime)");
     $stmt->bindParam(':messagetext', $Message_Text);
     $stmt->bindParam(':user_id', $UserID);
-    $stmt->bindParam(':messagetime,' $Message_Time);
+    $stmt->bindParam(':messagetime', $Message_Time);
     $stmt->execute();
 
     echo "fuck yea";
