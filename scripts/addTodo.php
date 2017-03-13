@@ -9,10 +9,11 @@ try {
     $UserID = $_GET['UserID'];
     $ProjectID = $_GET['ProjectID'];
 
-    $stmt = $db->prepare("INSERT INTO todo (User_ID, Project_ID, Description) VALUES (:user_id, :project_id, :description)");
+    $stmt = $db->prepare("INSERT INTO todo (User_ID, Project_ID, Description, Status) VALUES (:user_id, :project_id, :description, :status)");
     $stmt->bindParam(':description', $Description);
     $stmt->bindParam(':user_id', $UserID);
     $stmt->bindParam(':project_id', $ProjectID);
+    $stmt->bindParam(':status', $Status);
     $stmt->execute();
 
     echo "fuck yea";
