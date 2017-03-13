@@ -1,13 +1,10 @@
 <?php
 session_start();
-        $Email = $_SESSION['Email'];
-        $UserID = $_SESSION['UserID'];
+$Email = $_SESSION['Email'];
+$UserID = $_SESSION['UserID'];
 require('scripts/command.php');
-
 isLoggedIn($Email, $UserID);
-
 try {
-    
     //echo $Email;
     //Select all using user and password textboxes on login.php
     $stmt = $db->prepare('SELECT * FROM users WHERE Email=:email');
@@ -26,18 +23,14 @@ try {
 <!DOCTYPE html>
 <html>
 <head>
-        <!-- FOR USE OF MATERIALIZE -->
-        <!--Import Google Icon Font-->
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
-        <!--Link to Main css document-->
-        <link rel="stylesheet" type="text/css" href="css/main.css"
-        <!--Let browser know website is optimized for mobile-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
-    <Title><?php echo $UserFName?>'s Profile - LinQ</Title>
-    
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <!--Link to Main css document-->
+    <link rel="stylesheet" type="text/css" href="css/main.css"
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <style type="text/css">
     ul {
@@ -50,10 +43,8 @@ try {
 <!-- Navbar -->
 <nav>
     <div class="nav-wrapper black">
-        <a href="index.php" class="brand-logo left">Project LinQ</a>
+        <a href="profile.php" class="brand-logo left">Project LinQ</a>
         <ul id="nav-mobile" class="right">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="profile.php">Profile</a></li>
             <li><a href="scripts/logout.php">Logout</a></li>
         </ul>
     </div>
@@ -61,8 +52,81 @@ try {
 
 <h4>Welcome, <?php echo $UserFName . " " . $UserLName ?> | ID: <?php echo $UserID ?></h4>
 
-<h3>Info</h3>
+
+<!--projects-->
+
+
+<div class="row">
+    <div class="col s6">
+        <h4>Current Projects</h4>
+        <div class="card green accent-2">
+            <div class="card-content">
+                <?php
+                //ADMIN PROJECTS
+                $stmt = $db->prepare('SELECT * FROM projects WHERE Admin=:User_ID');
+                $stmt->bindParam(':User_ID', $_SESSION['UserID']);
+                $stmt->execute();
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $ProjectName = $row["ProjectName"];
+                    $ProjectID = $row["Project_ID"];
+                    $ProjectAdmin = $row["Admin"];
+                    $ProjectUser = $row["User_ID"];
+                    if ($ProjectUser == $ProjectAdmin) {
+                        ?>
+                        ADMIN - <a href="project.php?ProjectID=<?php echo $ProjectID ?>">
+                            ID: <?php echo $ProjectID ?> | <?php echo $ProjectName ?></a><br/>
+                        <?php
+                    }
+                }
+                //INVITED PROJECTS
+                echo "INVITED<br />";
+                //Get invited projects pointers
+                $stmt = $db->prepare('SELECT * FROM projects WHERE User_ID=:User_ID AND NOT User_ID=Admin');
+                $stmt->bindParam(':User_ID', $_SESSION['UserID']);
+                $stmt->execute();
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $ProjectName = $row["ProjectName"];
+                    $ProjectAdmin = $row["Admin"];
+                    $st = $db->prepare('SELECT * FROM projects WHERE Admin=:Admin AND  ProjectName=:ProjectName LIMIT 1');
+                    $st->bindParam(':Admin', $ProjectAdmin);
+                    $st->bindParam(':ProjectName', $ProjectName);
+                    $st->execute();
+                    while ($route = $st->fetch(PDO::FETCH_ASSOC)) {
+                        if ($route["User_ID"] == $route["Admin"]) {
+                            ?>
+                            Invited - <a href="project.php?ProjectID=<?php echo $route["Project_ID"] ?>">
+                                ID: <?php echo $route["Project_ID"] ?> | <?php echo $route["ProjectName"] ?></a><br/>
+                            <?php
+                        }
+                    }
+                }
+                ?>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col s6">
+        <!-- new Project -->
+        <div class="row">
+            <h4>Create Project</h4>
+            <div class="card green accent-2">
+                <div class="card-content">
+                    <form action="scripts/addProject.php?userID=<?php echo $_SESSION['UserID'] ?>" method="post">
+                        <input type="text" name="ProjectName" placeholder="New project name" class="input"
+                               autocomplete="off">
+                        <input class="btn wave-effect black" type="submit" value="Add">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!-- CHANGE PASSWORD -->
+<h3>Info</h3>
+
 <?php
 if (isset($_SESSION["User_ID"]) != "") {
     echo "Change your password here: ";
@@ -86,65 +150,6 @@ if (isset($_SESSION["User_ID"]) != "") {
     </div>
 </div>
 <br/>
-
-
-<h3>Projects</h3>
-<?php
-//ADMIN PROJECTS
-$stmt = $db->prepare('SELECT * FROM projects WHERE Admin=:User_ID');
-$stmt->bindParam(':User_ID', $_SESSION['UserID']);
-$stmt->execute();
-while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
-    $ProjectName =$row["ProjectName"];
-    $ProjectID = $row["Project_ID"];
-    $ProjectAdmin =$row["Admin"];
-    $ProjectUser = $row["User_ID"];
-    if ($ProjectUser == $ProjectAdmin){
-         ?>
-    ADMIN - <a href="project.php?ProjectID=<?php echo $ProjectID?>">
-    ID: <?php echo $ProjectID?> |  <?php echo $ProjectName?></a><br />
-    <?php
-    }
-}
-//INVITED PROJECTS
-echo "INVITED<br />";
-//Get invited projects pointers
-$stmt = $db->prepare('SELECT * FROM projects WHERE User_ID=:User_ID AND NOT User_ID=Admin');
-$stmt->bindParam(':User_ID', $_SESSION['UserID']);
-$stmt->execute();
-while ($row = $stmt ->fetch(PDO::FETCH_ASSOC)){
-    $ProjectName =$row["ProjectName"];
-    $ProjectAdmin =$row["Admin"];
-    $st = $db->prepare('SELECT * FROM projects WHERE Admin=:Admin AND  ProjectName=:ProjectName LIMIT 1');
-    $st->bindParam(':Admin',$ProjectAdmin);
-    $st->bindParam(':ProjectName',$ProjectName);
-    $st->execute();
-    while ($route = $st->fetch(PDO::FETCH_ASSOC)){
-        if ($route["User_ID"] == $route["Admin"]){
-             ?>
-    Invited - <a href="project.php?ProjectID=<?php echo $route["Project_ID"]?>">
-    ID: <?php echo $route["Project_ID"]?> |  <?php echo $route["ProjectName"]?></a><br />
-    <?php
-        }
-    }
-}
-?>
-<br/><br/>
-
-<h4>New Project</h4><br/>
-<div class="row">
-    <div class="col s8">
-        <div class="card green accent-2">
-            <div class="card-content">
-                <form action="scripts/addProject.php?userID=<?php echo $_SESSION['UserID'] ?>" method="post">
-                    <input type="text" name="ProjectName" placeholder="New project name" class="input"
-                           autocomplete="off">
-                    <input class="btn wave-effect black" type="submit" value="Add">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <!-- This is the footer -->
