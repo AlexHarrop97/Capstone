@@ -67,9 +67,10 @@ try {
 if (isset($_SESSION["User_ID"]) != "") {
     echo "Change your password here: ";
 
+} elseif (isset($_GET["pwchange"]) == 1) {
+    echo "Error: Wrong current password:";
 } else {
-    //redirect user back to login.php if the session does not exist
-    //header('Location: login.php');
+    echo "";
 }
 ?>
 <div class="row">
@@ -77,6 +78,7 @@ if (isset($_SESSION["User_ID"]) != "") {
         <div class="card green accent-2">
             <div class="card-content">
                 <form action="scripts/changePass.php" method="post">
+                    <input placeholder="Current Password" type="password" name="oldPass"/><br/>
                     <input placeholder="New Password" type="password" name="newPass"/><br/>
                     <input placeholder="Confirm New Password" type="password" name="newPassConfirm"/><br/>
                     <input type="submit" class="btn wave-effect black" value="Change Password" name="submitPassChange"/>

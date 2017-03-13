@@ -80,7 +80,9 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $Description = $row["Description"];
     ?>
     ID: <?php echo $Todo ?> | Description: <?php echo $Description ?>
-    <input type="button" name="delete" Value="Delete" action="scripts/delete.php&Todo_ID=<?php echo $Todo ?>">
+    <form action="scripts/deleteTodo.php?Todo_ID=<?php echo $Todo; ?>&ProjectID=<?php echo $ProjectID;?>"  method="post">
+        <input type="submit" value="Delete" class="submit">
+    </form>
     <br/>
     <?php
 }
