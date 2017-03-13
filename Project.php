@@ -88,9 +88,11 @@ try {
                     ?>
 
                     <div class="row">
-                        <input class="btn wave-effect black" type="button" name="delete" Value="Delete"
-                               action="scripts/deleteTodo.php?Todo_ID=<?php echo $Todo; ?>&ProjectID=<?php echo $ProjectID;?>">
-                        ID: <?php echo $Todo ?> | Description: <?php echo $Description ?>
+                        <form action="scripts/deleteTodo.php?Todo_ID=<?php echo $Todo; ?>&ProjectID=<?php echo $ProjectID;?>"  method="post">
+                            <input class="btn wave-effect black" type="submit" name="delete" Value="Delete"
+                                   action="scripts/deleteTodo.php?Todo_ID=<?php echo $Todo; ?>&ProjectID=<?php echo $ProjectID;?>">
+                            ID: <?php echo $Todo ?> | Description: <?php echo $Description ?>
+                        </form>
 
                         <br/>
                     </div>
@@ -108,6 +110,7 @@ try {
     </div>
 
 
+
     <!-- COMMENT -->
 
     <div class="col s6">
@@ -117,7 +120,7 @@ try {
                 <!-- GRAB COMMENTS -->
                 <?php
                 try {
-                    $getComments = $db->prepare('SELECT * FROM comments INNER JOIN users ON users.User_ID = comments.User_ID WHERE Project_ID = :projectID ORDER BY Message_Time ASC');
+                    $getComments = $db->prepare('SELECT * FROM comments INNER JOIN users ON users.User_ID = comments.User_ID WHERE Project_ID = :projectID ORDER BY Message_Time DESC');
                     $getComments->bindParam(':projectID', $ProjectID);
                     $getComments->execute();
                     $results = $getComments->fetchAll();
