@@ -21,7 +21,7 @@ try {
 
 }
 catch (PDOException $e) {
-    echo $UserID.$Description.$ProjectID;
+    echo $UserID.$Description.$ProjectID.$Status;
     die('New Todo Failed!');
 
 }
