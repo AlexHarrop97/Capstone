@@ -9,38 +9,6 @@ if ($_SESSION["User"] != "" && $_SESSION["User"] != null) {
 	echo "You are currently logged in as " . $_SESSION["User"];
 }
 
-
-/*
-else {
-
-	//redirect user back to login.php if the session does not exist
-	header('Location: login.php');
-}
-
-if (!isset($_GET["loggedIn"])) {
-
-	SignOut();
-}
-
-// Displays the contents in database for todo's
-$getTodo = db->prepare("Select * FROM todo INNER JOIN projects ON todo.PROJECT_ID = projects.Project_ID");
-
-$userCheck = db->prepare("Select * FROM projects INNER JOIN users ON users.User_ID = projects.User_ID");
-
-$getTodo->FetchAll();
-$userCheck->FetchAll();
-
-foreach ($userCheck as $user) {
- 	if ($user["User_ID"] = ) {
- 		echo "You have access";
- 	}
- 	else
- 	{
- 		echo "you do not have access to this project";
- 	}
- }
-*/
-
 $query = $db->prepare("
 	SELECT todo.User_ID, Description, Status
 	FROM todo INNER JOIN projects ON todo.Project_ID = projects.Project_ID
