@@ -1,6 +1,7 @@
 <?php
 
 //Connection to Database
+
 $user="group3";
 $pass="Group3";
 $dsn="mysql:host=sql.neit.edu;port=5500;dbname=se265win17group3;";
@@ -21,12 +22,3 @@ Function isLoggedIn ($Email, $UserID) {
         }
 }
 
-Function proUserCount ($Admin, $ProjectName) {
-        require_once('command.php');
-        $st = $db->prepare('SELECT User_ID FROM projects WHERE Admin=:Admin AND ProjectName=:ProjectName');
-        $st->bindParam(':Admin', $Admin);
-        $st->bindParam(':ProjectName', $ProjectName);
-        $st->execute();
-        $r = $st->rowCount();
-        echo $r;
-}
