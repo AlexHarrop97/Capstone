@@ -20,10 +20,9 @@ try {
 }
 catch (PDOException $e) {
     echo $UserID.$ProjectName;
-    die('New Proejct Failed!');
+    die('New Project Failed!');
 
 }
 
 echo $UserID
 ?>
-
