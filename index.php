@@ -42,8 +42,29 @@ if (isset($_GET["loginSuccess"]) == 1) {
     </div><?php
 
 }
-else{
-    echo " ";
+elseif (isset($_GET["register"]) == 1){
+   ?>
+    <div class="row" id="error">
+        <div class="col s12">
+            <div class="card green accent-2">
+                <div class="card-content center">
+                    <p>Successfuly Registered! You may now login.</p>
+                </div>
+            </div>
+        </div>
+    </div><?php
+}
+elseif (isset($_GET["pwchange"]) == 1){
+   ?>
+    <div class="row" id="error">
+        <div class="col s12">
+            <div class="card green accent-2">
+                <div class="card-content center">
+                    <p>Successfuly changed password! Please log in.</p>
+                </div>
+            </div>
+        </div>
+    </div><?php
 }
 
 ?>

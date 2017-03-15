@@ -32,6 +32,20 @@
 
     <div class="col s6">
         <h4>Register Here</h4>
+        <?php switch (isset($_GET["regfail"])){
+            case "blank":
+                echo "Error: please enter into every text field.";
+                break;
+            case "pass":
+                echo "Error: Passwords don't match.";
+                break;
+            case "email":
+                echo "Error: Invalid email.";
+                break;
+            case "existing":
+                echo "Error: An account already exist under that email.";
+                break;
+        }?>
         <div id="register-card" class="card green accent-2">
             <div class="card-content ">
                 <form id="registerForm" action="scripts/addUser.php" method="post">

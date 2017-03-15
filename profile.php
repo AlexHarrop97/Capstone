@@ -66,15 +66,42 @@ try {
 
 <h4>Welcome, <?php echo $UserFName . " " . $UserLName ?></h4>
 
+<?php
+if (isset($_GET["pwchange"]) == "match") {
+
+    ?>
+    <div class="row" id="error">
+        <div class="col s12">
+            <div class="card red accent-2">
+                <div class="card-content center">
+                    <p>Error: the new passwords don't match.</p>
+                </div>
+            </div>
+        </div>
+    </div><?php
+
+}
+elseif (isset($_GET["pwchange"]) == "current") {
+
+    ?>
+    <div class="row" id="error">
+        <div class="col s12">
+            <div class="card red accent-2">
+                <div class="card-content center">
+                    <p>Error: invalid current email.</p>
+                </div>
+            </div>
+        </div>
+    </div><?php
+
+}?>
+
 <!-- show/hide details-->
 <input class="btn wave-effect black" type="submit" value="Edit Profile" onclick="userEdit();">
 <div id="edit" style="display: none;">
         <?php
     if (isset($_SESSION["User_ID"]) != "") {
         echo "Change your password here: ";
-    
-    } elseif (isset($_GET["pwchange"]) == 1) {
-        echo "Error: Wrong current password:";
     } else {
         echo "";
     }

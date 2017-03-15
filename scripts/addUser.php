@@ -1,7 +1,5 @@
 <?php
 // this is where the user is created
-// the information is obtained from the register_user.php file using post method
-
 require_once('command.php');
 
 try {
@@ -12,24 +10,44 @@ try {
 	$Password = $_POST["password"];
 	$PassConfirm = $_POST["passConfirm"];
 	
+	//no blank fields
+	if ($Email != "" && $FirstName != "" && $LastName != "" && $Password != "" && $PassConfirm != ""){
+		//passwords need to match
+		if ($Password == $PassConfirm){
+			//validate email
+			if (!filter_var($Email, FILTER_VALIDATE_EMAIL) === false) {
+				//No existing email
+				$a = $db->prepare('SELECT * FROM users WHERE Email=:email');
+				$a->bindParam(':email', $Email);
+				$a->execute();
+				if ($a->rowCount() == 0){
+					//hash pass
+					$Password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+					//insert
+					$b = $db->prepare("INSERT INTO users (Email, P4WD, FirstName, LastName) VALUES (:email, :pass, :fname, :lname)");
+					$b->bindParam(':email', $Email);
+					$b->bindParam(':pass', $Password);
+					$b->bindParam(':fname', $FirstName);
+					$b->bindParam(':lname', $LastName);
+					$b->execute();
 
-	$stmt = $db->prepare("INSERT INTO users (Email, P4WD, FirstName, LastName) VALUES (:email, :pass, :fname, :lname) WHERE Email REGEXP '[a-zA-Z0-9]+(?:(\.|_)[A-Za-z0-9!#$%&'*+/=?^`{|}~-]+)*@(?!([a-zA-Z0-9]*\.[a-zA-Z0-9]*\.[a-zA-Z0-9]*\.))(?:[A-Za-z0-9](?:[a-zA-Z0-9-]*[A-Za-z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?'");
-	$stmt->bindParam(':email', $Email);
-	$stmt->bindParam(':pass', $Password);
-	$stmt->bindParam(':fname', $FirstName);
-	$stmt->bindParam(':lname', $LastName);
-
-	$Password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-	$stmt->execute();
-
-	echo "Successfully Registered!";
-	
-	
-	//redirect user back to homepage
-	header('Location: index.php');
-}
-catch (PDOException $e) {
+					//redirect user back to homepage
+					header('Location: ../index.php?register=1');
+				} else {
+					header('Location: ../register.php?regfail=existing');
+				}
+			} else {
+				header('Location: ../register.php?regfail=email');
+			}
+		} else {
+			header('Location: ../register.php?regfail=pass');
+		}
+	} else {
+		header('Location: ../register.php?regfail=blank');
+	}
+} catch (PDOException $e) {
 	
 	die('Registration Failed! ');
+	header('Location: register.php?regfail=1');
 }
 ?>
