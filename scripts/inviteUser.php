@@ -20,6 +20,7 @@ try{
             $stmt->execute();
             echo "Invite sent";
         }
+        header('Location: ../profile.php');
     }
 }
 catch (PDOException $e) {
