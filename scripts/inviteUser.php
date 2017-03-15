@@ -20,7 +20,7 @@ try{
             $stmt->execute();
             echo "Invite sent";
         }
-        header('Location: ../profile.php');
+        header('Location: ../project.php?ProjectID='.$_GET['ProjectID']);
     }
 }
 catch (PDOException $e) {
