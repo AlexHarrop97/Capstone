@@ -7,7 +7,7 @@ require_once('command.php');
 
 try {
 
-	// Select all using user and password textboxes on login.php
+	// Select all using user and password textboxes on index.php
 	$stmt = $db->prepare("SELECT * FROM users WHERE (Email = :email)");
 	$stmt->bindParam(':email', $_POST["email"]);
 
