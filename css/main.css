@@ -3,7 +3,9 @@
     color: black;
 }
 
-
+.card {
+    border: 3px solid #000000 !important;
+}
 #register-card {
     border: 3px solid #000000 !important;
 }

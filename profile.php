@@ -20,18 +20,31 @@ try {
     die('Sign In Failed! ');
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
-    <!--Link to Main css document-->
-    <link rel="stylesheet" type="text/css" href="css/main.css"
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Profile - LinQ - <?php echo $UserFName." ".$UserLName?></title>
+<!--Import Google Icon Font-->
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+<!--Link to Main css document-->
+<link rel="stylesheet" type="text/css" href="css/main.css"
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Profile - LinQ - <?php echo $UserFName." ".$UserLName?></title>
+
+<script type="text/javascript">
+    function userEdit() {
+        var x = document.getElementById('edit');
+        if (x.style.display === 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+    }
+</script>
+    
 </head>
 <style type="text/css">
     ul {
@@ -53,7 +66,35 @@ try {
 
 <h4>Welcome, <?php echo $UserFName . " " . $UserLName ?></h4>
 
-
+<!-- show/hide details-->
+<input class="btn wave-effect black" type="submit" value="Edit Profile" onclick="userEdit();">
+<div id="edit" style="display: none;">
+        <?php
+    if (isset($_SESSION["User_ID"]) != "") {
+        echo "Change your password here: ";
+    
+    } elseif (isset($_GET["pwchange"]) == 1) {
+        echo "Error: Wrong current password:";
+    } else {
+        echo "";
+    }
+    ?>
+    <div class="row">
+        <div class="col s4">
+            <div class="card green accent-2">
+                <div class="card-content">
+                    <form action="scripts/changePass.php" method="post">
+                        <input placeholder="Current Password" type="password" name="oldPass"/><br/>
+                        <input placeholder="New Password" type="password" name="newPass"/><br/>
+                        <input placeholder="Confirm New Password" type="password" name="newPassConfirm"/><br/>
+                        <input type="submit" class="btn wave-effect black" value="Change Password" name="submitPassChange"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+</div>
 <!--projects-->
 
 
@@ -62,7 +103,7 @@ try {
         <h4>Current Projects</h4>       
                 <?php
                 //ADMIN PROJECTS
-                $stmt = $db->prepare('SELECT * FROM projects WHERE Admin=:User_ID');
+                $stmt = $db->prepare('SELECT * FROM projects WHERE Admin=:User_ID ORDER BY Project_ID DESC;');
                 $stmt->bindParam(':User_ID', $_SESSION['UserID']);
                 $stmt->execute();
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -74,7 +115,7 @@ try {
                         ?>
                         <div class="row">
                             <a href="project.php?ProjectID=<?php echo $ProjectID ?>">
-                            <div class="card green accent-2 hoverable">
+                            <div class="card green accent-2 hoverable" style="border:3px solid #000000 !important;">
                               <div class="card-content black-text">
                                 <span class="card-title"><?php echo $ProjectName?></span>
                                 <?php
@@ -121,7 +162,7 @@ try {
                             ?>
                             <div class="row">
                             <a href="project.php?ProjectID=<?php echo $route["Project_ID"] ?>">
-                            <div class="card green accent-2">
+                            <div class="card green accent-2" style="border:3px solid #000000 !important;">
                               <div class="card-content black-text">
                                 <span class="card-title"><?php echo $route["ProjectName"]?></span>
                                 <?php
@@ -161,7 +202,7 @@ try {
         <!-- new Project -->
         <div class="row">
             <h4>Create Project</h4>
-            <div class="card green accent-2">
+            <div class="card green accent-2" style="border:3px solid #000000 !important;">
                 <div class="card-content">
                     <form action="scripts/addProject.php?userID=<?php echo $_SESSION['UserID'] ?>" method="post">
                         <input type="text" name="ProjectName" placeholder="New project name" class="input"
@@ -176,33 +217,6 @@ try {
 </div>
 
 <!-- CHANGE PASSWORD -->
-<h3>Info</h3>
-
-<?php
-if (isset($_SESSION["User_ID"]) != "") {
-    echo "Change your password here: ";
-
-} elseif (isset($_GET["pwchange"]) == 1) {
-    echo "Error: Wrong current password:";
-} else {
-    echo "";
-}
-?>
-<div class="row">
-    <div class="col s4">
-        <div class="card green accent-2">
-            <div class="card-content">
-                <form action="scripts/changePass.php" method="post">
-                    <input placeholder="Current Password" type="password" name="oldPass"/><br/>
-                    <input placeholder="New Password" type="password" name="newPass"/><br/>
-                    <input placeholder="Confirm New Password" type="password" name="newPassConfirm"/><br/>
-                    <input type="submit" class="btn wave-effect black" value="Change Password" name="submitPassChange"/>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<br/>
 
 
 <!-- This is the footer -->
