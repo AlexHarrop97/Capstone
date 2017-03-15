@@ -21,6 +21,7 @@ try {
 ?>
 <!DOCTYPE html>
 <html>
+<title>Your Project</title>
 <head>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -30,6 +31,7 @@ try {
     <link rel="stylesheet" type="text/css" href="css/main.css"
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Project - <?php echo $ProjectName?> - LinQ </title>
 </head>
 <style type="text/css">
     ul {
@@ -76,7 +78,7 @@ try {
 <div class="row">
     <div class="col s6">
         <h4>TODOs</h4>
-        <div class="card green accent-2" style="border:3px solid #000000 !important;">
+        <div class="card green accent-2">
             <div class="card-content">
                 <?php
                 $stmt = $db->prepare('SELECT * FROM todo WHERE Project_ID=:Project_ID');
@@ -88,9 +90,11 @@ try {
                     ?>
 
                     <div class="row">
-                        <input class="btn wave-effect black" type="button" name="delete" Value="Delete"
-                               action="scripts/delete.php&Todo_ID=<?php echo $Todo ?>">
-                        ID: <?php echo $Todo ?> | Description: <?php echo $Description ?>
+                        <form action="scripts/deleteTodo.php?Todo_ID=<?php echo $Todo; ?>&ProjectID=<?php echo $ProjectID;?>"  method="post">
+                            <input class="btn wave-effect black" type="submit" name="delete" Value="Delete"
+                                   action="scripts/deleteTodo.php?Todo_ID=<?php echo $Todo; ?>&ProjectID=<?php echo $ProjectID;?>">
+                            ID: <?php echo $Todo ?> | Description: <?php echo $Description ?>
+                        </form>
 
                         <br/>
                     </div>
@@ -108,11 +112,12 @@ try {
     </div>
 
 
+
     <!-- COMMENT -->
 
     <div class="col s6">
         <h4>Comments</h4>
-        <div class="card green accent-2" style="border:3px solid #000000 !important;">
+        <div class="card green accent-2">
             <div class="card-content">
                 <!-- GRAB COMMENTS -->
                 <?php
@@ -151,7 +156,7 @@ try {
 <div class="row">
     <div class="col s8">
         <h4>Invite User</h4>
-        <div class="card green accent-2" style="border:3px solid #000000 !important;">
+        <div class="card green accent-2">
             <div class="card-content">
                 <form action="scripts/inviteUser.php?ProjectID=<?php echo $ProjectID ?>&Admin=<?php echo $ProjectAdminID ?>
                     &ProjectName=<?php echo $ProjectName ?>" method="post">
@@ -183,7 +188,6 @@ try {
     <div class="footer-copyright">
         <div class="container">
             © 2017 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">Press Me!</a>
         </div>
     </div>
 </footer>
@@ -194,3 +198,6 @@ try {
 </body>
 </html>
 
+
+Contact GitHub API Training Shop Blog About
+© 2017 GitHub, Inc. Terms Privacy Security Status Help
