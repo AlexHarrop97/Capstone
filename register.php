@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<title>Register Here</title>
 <head>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -19,7 +20,6 @@
         <a href="index.php" class="brand-logo left">Project LinQ</a>
         <ul id="nav-mobile" class="right">
             <li><a href="index.php">Home</a></li>
-            <li><a href="profile.php">Profile</a></li>
         </ul>
     </div>
 </nav>
@@ -73,7 +73,6 @@
     <div class="footer-copyright">
         <div class="container">
             © 2017 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">Press Me!</a>
         </div>
     </div>
 </footer>
